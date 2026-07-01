@@ -2812,8 +2812,8 @@ a {
   }
 
   .spiral-binding {
-    left: -50px;
-    width: 108px;
+    left: clamp(-56px, -13.2vw, -44px);
+    width: clamp(100px, 27.5vw, 116px);
     top: -1px;
     bottom: -1px;
     filter: drop-shadow(2px 4px 4px rgba(49, 65, 15, 0.085));
