@@ -1138,6 +1138,7 @@ a {
   display: grid;
   align-items: stretch;
   perspective: 1300px;
+  overflow: hidden;
 }
 
 .book-stage {
@@ -1659,6 +1660,7 @@ a {
     radial-gradient(circle at 18% 4%, rgba(184, 160, 90, 0.26), transparent 18rem),
     radial-gradient(circle at 92% 14%, rgba(49, 65, 15, 0.16), transparent 22rem),
     linear-gradient(180deg, var(--vp-paper), var(--vp-cream) 58%, var(--vp-beige));
+  overflow: hidden;
 }
 
 .menu-page::before {
@@ -1743,10 +1745,11 @@ a {
 .beach-vector {
   position: absolute;
   display: block;
-  opacity: 0.11;
+  opacity: 0.075;
   filter:
-    invert(20%) sepia(24%) saturate(1218%) hue-rotate(36deg) brightness(86%) contrast(91%)
-    drop-shadow(0 14px 22px rgba(49, 65, 15, 0.06));
+    invert(47%) sepia(22%) saturate(620%) hue-rotate(18deg) brightness(94%) contrast(84%)
+    drop-shadow(0 14px 22px rgba(49, 65, 15, 0.035));
+  mix-blend-mode: multiply;
 }
 
 .beach-vector-palm {
@@ -1754,7 +1757,7 @@ a {
   top: 132px;
   width: 122px;
   transform: rotate(-7deg);
-  opacity: 0.1;
+  opacity: 0.07;
 }
 
 .beach-vector-umbrella {
@@ -1762,7 +1765,7 @@ a {
   top: 138px;
   width: 118px;
   transform: rotate(7deg);
-  opacity: 0.1;
+  opacity: 0.07;
 }
 
 .beach-vector-lounger {
@@ -1770,7 +1773,7 @@ a {
   bottom: 126px;
   width: 134px;
   transform: rotate(-4deg);
-  opacity: 0.1;
+  opacity: 0.07;
 }
 
 .beach-vector-waves {
@@ -1998,8 +2001,9 @@ a {
   position: absolute;
   pointer-events: none;
   z-index: 0;
-  opacity: 0.08;
-  filter: invert(20%) sepia(24%) saturate(1218%) hue-rotate(36deg) brightness(86%) contrast(91%);
+  opacity: 0.055;
+  filter: invert(47%) sepia(22%) saturate(620%) hue-rotate(18deg) brightness(94%) contrast(84%);
+  mix-blend-mode: multiply;
 }
 
 .page-vector-palm {
@@ -2007,14 +2011,14 @@ a {
   top: 28px;
   width: 74px;
   transform: rotate(-10deg);
-  opacity: 0.12;
+  opacity: 0.07;
 }
 
 .page-vector-palm.cover-vector {
   left: 30px;
   top: 28px;
   width: 58px;
-  opacity: 0.075;
+  opacity: 0.05;
 }
 
 .page-vector-umbrella {
@@ -2022,14 +2026,14 @@ a {
   top: 26px;
   width: 82px;
   transform: rotate(9deg);
-  opacity: 0.1;
+  opacity: 0.065;
 }
 
 .page-vector-umbrella.cover-vector {
   right: 28px;
   top: 30px;
   width: 58px;
-  opacity: 0.075;
+  opacity: 0.05;
 }
 
 .page-vector-lounger {
@@ -2037,21 +2041,21 @@ a {
   bottom: 12px;
   width: 96px;
   transform: rotate(-4deg);
-  opacity: 0.045;
+  opacity: 0.04;
 }
 
 .page-vector-lounger.cover-vector {
   right: 28px;
   bottom: 30px;
   width: 72px;
-  opacity: 0.07;
+  opacity: 0.05;
 }
 
 .page-vector-waves {
   left: 34px;
   bottom: 28px;
   width: 62px;
-  opacity: 0.065;
+  opacity: 0.045;
 }
 
 .paper-title {
@@ -2769,7 +2773,12 @@ a {
 
 @media (max-width: 520px) {
   .vanilya-menu-app {
-    padding: 10px 10px 16px;
+    height: 100svh;
+    min-height: 100svh;
+    grid-template-rows: 70px minmax(0, 1fr) 46px 24px;
+    gap: 7px;
+    overflow: hidden;
+    padding: 8px 10px 9px;
   }
 
   .brand-logo {
@@ -2778,23 +2787,31 @@ a {
   }
 
   .flip-header {
-    min-height: 74px;
-    padding-top: 6px;
+    min-height: 0;
+    height: 70px;
+    padding: 2px 6px 0;
   }
 
   .brand-copy h1 {
     font-size: clamp(1.45rem, 5.6vw, 2rem);
   }
 
+  .book-shell {
+    height: 100%;
+    min-height: 0;
+  }
+
   .book-stage,
   .paper-page {
-    height: calc(100svh - 198px);
+    height: 100%;
     min-height: 0;
   }
 
   .creator-footer {
     gap: 4px;
     font-size: 0.62rem;
+    min-height: 0;
+    padding-top: 0;
   }
 
   .cover-page,
