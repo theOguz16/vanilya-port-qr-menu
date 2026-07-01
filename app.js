@@ -27,6 +27,30 @@ const sheetDescription = document.querySelector("#sheetDescription");
 const sheetPrice = document.querySelector("#sheetPrice");
 const sheetCalories = document.querySelector("#sheetCalories");
 
+function lockMenuViewportHeight() {
+  const root = document.documentElement;
+  let lockedWidth = window.innerWidth;
+
+  function applyLock() {
+    root.style.setProperty("--menu-locked-height", `${window.innerHeight}px`);
+    lockedWidth = window.innerWidth;
+  }
+
+  applyLock();
+
+  window.addEventListener("resize", () => {
+    if (Math.abs(window.innerWidth - lockedWidth) > 24) {
+      applyLock();
+    }
+  });
+
+  window.addEventListener("orientationchange", () => {
+    window.setTimeout(applyLock, 250);
+  });
+}
+
+lockMenuViewportHeight();
+
 function productsForCategory(category) {
   return products.filter((product) => product.category === category);
 }
