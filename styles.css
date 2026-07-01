@@ -2812,8 +2812,8 @@ a {
   }
 
   .spiral-binding {
-    left: clamp(-56px, -13.2vw, -44px);
-    width: clamp(100px, 27.5vw, 116px);
+    left: clamp(-66px, -15.5vw, -54px);
+    width: clamp(98px, 26vw, 112px);
     top: -1px;
     bottom: -1px;
     filter: drop-shadow(2px 4px 4px rgba(49, 65, 15, 0.085));
@@ -2861,7 +2861,7 @@ a {
   }
 
   .paper-page {
-    padding: 18px 13px 15px 38px;
+    padding: 18px 13px 15px clamp(52px, 15vw, 64px);
   }
 
   .paper-page.is-centered-page {
