@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 86 720" fill="none">
+  <defs>
+    <linearGradient id="wire" x1="6" y1="0" x2="78" y2="0" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#59606a"/>
+      <stop offset="0.2" stop-color="#f8fbfb"/>
+      <stop offset="0.42" stop-color="#aeb8bf"/>
+      <stop offset="0.7" stop-color="#f5f7f5"/>
+      <stop offset="1" stop-color="#4c535b"/>
+    </linearGradient>
+    <linearGradient id="cap" x1="0" y1="0" x2="22" y2="0" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#2f3439"/>
+      <stop offset="0.5" stop-color="#d9dfdf"/>
+      <stop offset="1" stop-color="#424950"/>
+    </linearGradient>
+    <filter id="softShadow" x="-30%" y="-50%" width="170%" height="210%" color-interpolation-filters="sRGB">
+      <feDropShadow dx="2" dy="3" stdDeviation="2.2" flood-color="#31410f" flood-opacity="0.2"/>
+      <feDropShadow dx="-1" dy="-1" stdDeviation="0.8" flood-color="#ffffff" flood-opacity="0.55"/>
+    </filter>
+    <g id="ring">
+      <ellipse cx="64" cy="24" rx="11" ry="8" fill="#31410f" opacity="0.16"/>
+      <ellipse cx="65" cy="23" rx="8.4" ry="5.8" fill="url(#cap)" opacity="0.72"/>
+      <path d="M4.5 24.5C18.5 5.5 53.5 5.5 77.5 24.5C55.5 43.5 19 43.5 4.5 24.5Z" stroke="#36404a" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" opacity="0.34"/>
+      <path d="M4.5 22.5C18.5 4.5 53.5 4.5 77.5 22.5C55.5 41.5 19 41.5 4.5 22.5Z" stroke="url(#wire)" stroke-width="5.8" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M13 14.5C29 4.7 55 7.4 72 22" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" opacity="0.72"/>
+      <path d="M12 33.2C29 40 54 38.6 70.5 25.8" stroke="#68717a" stroke-width="1.2" stroke-linecap="round" opacity="0.5"/>
+      <ellipse cx="65" cy="22.5" rx="3.2" ry="2.1" fill="#ffffff" opacity="0.65"/>
+    </g>
+  </defs>
+  <rect x="49" y="16" width="7" height="688" rx="3.5" fill="url(#wire)" opacity="0.78" filter="url(#softShadow)"/>
+  <g filter="url(#softShadow)">
+    <use href="#ring" y="4"/>
+    <use href="#ring" y="55"/>
+    <use href="#ring" y="106"/>
+    <use href="#ring" y="157"/>
+    <use href="#ring" y="208"/>
+    <use href="#ring" y="259"/>
+    <use href="#ring" y="310"/>
+    <use href="#ring" y="361"/>
+    <use href="#ring" y="412"/>
+    <use href="#ring" y="463"/>
+    <use href="#ring" y="514"/>
+    <use href="#ring" y="565"/>
+    <use href="#ring" y="616"/>
+  </g>
+</svg>

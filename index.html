@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Vanilya Port QR Menü</title>
+    <meta
+      name="description"
+      content="Vanilya Port için sayfa çevirme efektli mobil QR menü."
+    />
+    <link rel="preconnect" href="https://images.unsplash.com" />
+    <link rel="stylesheet" href="./styles.css?v=20260701-footer-polish" />
+  </head>
+  <body class="menu-page">
+    <main class="flip-menu-app vanilya-menu-app" id="menu">
+      <header class="flip-header">
+        <img class="brand-logo" src="./assets/vanilya-port-logo.jpg" alt="Vanilya Port logosu" />
+        <div class="brand-copy">
+          <span class="table-pill">Food & Drink</span>
+          <h1>VANİLYA PORT</h1>
+        </div>
+      </header>
+
+      <section class="book-shell" aria-label="Sayfa çevirme menü">
+        <div class="book-stage" id="bookStage">
+          <div class="spiral-binding" aria-hidden="true">
+            <img src="./assets/real-spiral-transparent.png" alt="" />
+          </div>
+          <article class="paper-page is-active" id="menuPage" aria-live="polite"></article>
+          <div class="paper-page turn-shadow" id="turnShadow" aria-hidden="true"></div>
+        </div>
+      </section>
+
+      <nav class="book-controls" aria-label="Sayfa kontrolleri">
+        <button class="page-nav" type="button" id="prevPage" aria-label="Önceki sayfa">‹</button>
+        <div class="page-dots" id="pageDots"></div>
+        <button class="page-nav" type="button" id="nextPage" aria-label="Sonraki sayfa">›</button>
+      </nav>
+
+      <footer class="creator-footer">
+        <span>by</span>
+        <strong>Oğuz Han Uyar</strong>
+        <small>© 2026</small>
+      </footer>
+    </main>
+
+    <div class="product-sheet" id="productSheet" aria-hidden="true">
+      <button class="sheet-backdrop" type="button" data-close-sheet aria-label="Kapat"></button>
+      <article class="sheet-card" role="dialog" aria-modal="true" aria-labelledby="sheetTitle">
+        <button class="sheet-close" type="button" data-close-sheet aria-label="Kapat">×</button>
+        <img id="sheetImage" alt="" />
+        <div class="sheet-content">
+          <span id="sheetTag"></span>
+          <h2 id="sheetTitle"></h2>
+          <p id="sheetDescription"></p>
+          <div class="sheet-footer">
+            <strong id="sheetPrice"></strong>
+            <span id="sheetCalories"></span>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <script src="./menu-data.js?v=20260701-categories"></script>
+    <script src="./app.js?v=20260701-safe-render"></script>
+  </body>
+</html>

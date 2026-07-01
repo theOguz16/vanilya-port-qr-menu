@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Vanilya Port Yönetim | QR Menü</title>
+    <meta name="description" content="QR menü ürün ekleme paneli." />
+    <link rel="stylesheet" href="../styles.css?v=20260701-overflow-polish-2" />
+  </head>
+  <body class="admin-page">
+    <section class="admin-login" id="adminLogin">
+      <form class="admin-login-card" id="loginForm">
+        <img src="../assets/vanilya-port-logo.jpg" alt="Vanilya Port logosu" />
+        <p class="eyebrow">Vanilya Port</p>
+        <h1>Admin girişi</h1>
+        <label>
+          Kullanıcı adı
+          <input name="username" type="text" autocomplete="username" required />
+        </label>
+        <label>
+          Şifre
+          <input name="password" type="password" autocomplete="current-password" required />
+        </label>
+        <button class="save-button" type="submit">Giriş yap</button>
+        <p class="form-status" id="loginStatus" role="status" aria-live="polite"></p>
+      </form>
+    </section>
+
+    <main class="admin-dashboard" id="adminDashboard" hidden>
+      <header class="admin-header">
+        <div>
+          <p class="eyebrow">Vanilya Port</p>
+          <h1>Menü yönetimi</h1>
+          <p>
+            Buradan eklenen ürünler QR ile açılan müşteri menüsünde görünür.
+          </p>
+        </div>
+        <div class="admin-header-actions">
+          <a class="secondary-link" href="../">QR menüyü aç</a>
+          <button class="secondary-link admin-logout" id="logoutButton" type="button">Çıkış</button>
+        </div>
+      </header>
+
+      <section class="admin-grid">
+        <form class="admin-form admin-form-wide" id="productForm">
+          <label>
+            Ürün adı
+            <input name="name" type="text" placeholder="Örn. Damla Sakızlı Salep" required />
+          </label>
+          <label>
+            Fiyat
+            <input name="price" type="text" placeholder="Örn. 390 TL" required />
+          </label>
+          <label>
+            Kategori
+            <select name="category" required>
+              <option value="coldDrinks">Soğuk İçecekler</option>
+              <option value="hotDrinks">Sıcak İçecekler</option>
+              <option value="desserts">Tatlılar</option>
+              <option value="snacks">Atıştırmalıklar</option>
+            </select>
+          </label>
+          <label>
+            Kalori
+            <input name="calories" type="text" placeholder="Örn. 720 kcal" required />
+          </label>
+          <label>
+            Sıralama
+            <input name="sortOrder" type="number" placeholder="Örn. 10" value="10" required />
+          </label>
+          <label>
+            Durum
+            <select name="isActive" required>
+              <option value="true">Aktif</option>
+              <option value="false">Pasif</option>
+            </select>
+          </label>
+          <label class="full-row">
+            Açıklama
+            <textarea
+              name="description"
+              rows="4"
+              placeholder="Ürün malzemeleri, porsiyon bilgisi, alerjen notu..."
+              required
+            ></textarea>
+          </label>
+          <label class="upload-box full-row" for="imageInput">
+            <input id="imageInput" name="image" type="file" accept="image/*" />
+            <span>
+              <strong>Ürün fotoğrafı yükle</strong>
+              <small>PNG, JPG veya WEBP seç. Boş bırakılırsa logo placeholder kullanılır.</small>
+            </span>
+            <img id="imagePreview" alt="" />
+          </label>
+          <div class="admin-form-actions full-row">
+            <button class="save-button" id="saveButton" type="submit">Ürünü ekle</button>
+            <button class="secondary-link admin-cancel-edit" id="cancelEdit" type="button" hidden>
+              Düzenlemeyi iptal et
+            </button>
+          </div>
+          <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
+        </form>
+
+        <aside class="admin-preview">
+          <div class="admin-preview-header">
+            <span class="panel-index">Canlı Menü</span>
+            <strong id="adminCount">0 ürün</strong>
+          </div>
+          <div class="admin-category-tabs" id="adminCategoryTabs" aria-label="Kategori filtreleri"></div>
+          <div class="admin-products" id="adminProducts"></div>
+        </aside>
+      </section>
+    </main>
+
+    <script src="../menu-data.js?v=20260701-backend"></script>
+    <script src="./admin.js?v=20260701-backend"></script>
+  </body>
+</html>
