@@ -1860,42 +1860,54 @@ a {
 }
 
 .creator-footer {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: auto auto auto;
   align-items: center;
   justify-content: center;
-  gap: 7px;
-  padding: 4px 8px 0;
+  justify-items: center;
+  gap: 8px;
+  min-height: 30px;
+  padding: 2px 8px 0;
   color: rgba(49, 65, 15, 0.62);
   font-size: 0.72rem;
-  line-height: 1.3;
+  line-height: 1;
   text-align: center;
+  white-space: nowrap;
 }
 
 .creator-footer span {
+  display: inline-flex;
+  align-items: center;
+  height: 24px;
   font-weight: 800;
   letter-spacing: 0.12em;
   text-transform: uppercase;
 }
 
 .creator-footer strong {
+  display: inline-flex;
+  align-items: center;
+  height: 24px;
   color: var(--vp-olive);
   font-family: Georgia, "Times New Roman", serif;
   font-size: 0.9rem;
+  line-height: 1;
 }
 
 .creator-footer small {
-  min-height: 24px;
+  height: 24px;
+  min-width: 64px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   border: 1px solid rgba(123, 106, 42, 0.2);
   border-radius: 999px;
-  padding: 2px 9px;
+  padding: 0 9px;
   background: rgba(255, 253, 247, 0.54);
   color: #7b6a2a;
   font-size: 0.78rem;
   font-weight: 900;
+  line-height: 1;
 }
 
 .flip-header .icon-button {
@@ -2846,10 +2858,26 @@ a {
   }
 
   .creator-footer {
-    gap: 4px;
+    gap: 6px;
     font-size: 0.62rem;
-    min-height: 0;
+    min-height: 24px;
     padding-top: 0;
+  }
+
+  .creator-footer span,
+  .creator-footer strong,
+  .creator-footer small {
+    height: 22px;
+  }
+
+  .creator-footer strong {
+    font-size: 0.86rem;
+  }
+
+  .creator-footer small {
+    min-width: 60px;
+    padding-inline: 8px;
+    font-size: 0.76rem;
   }
 
   .cover-page,
