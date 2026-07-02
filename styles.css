@@ -715,6 +715,29 @@ a {
   line-height: 1.6;
 }
 
+.sheet-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-top: 13px;
+}
+
+.sheet-options[hidden] {
+  display: none !important;
+}
+
+.sheet-options span {
+  border: 1px solid rgba(49, 65, 15, 0.12);
+  border-radius: 999px;
+  padding: 7px 10px;
+  background: rgba(184, 160, 90, 0.14);
+  color: var(--vp-olive);
+  font-size: 0.76rem;
+  font-weight: 900;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
 .sheet-footer {
   display: flex;
   align-items: center;
@@ -1105,6 +1128,13 @@ a {
   }
 
   .admin-form-actions {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-option-add,
+  .admin-option-row,
+  .admin-category-form,
+  .admin-category-manager-row {
     grid-template-columns: 1fr;
   }
 }
@@ -2583,6 +2613,84 @@ a {
   grid-template-columns: minmax(0, 1fr) auto;
   align-items: center;
   gap: 10px;
+}
+
+.admin-option-editor,
+.admin-category-manager {
+  display: grid;
+  gap: 12px;
+  border: 1px solid rgba(49, 65, 15, 0.12);
+  border-radius: 18px;
+  padding: 14px;
+  background: rgba(255, 253, 247, 0.42);
+}
+
+.admin-option-head span,
+.admin-category-manager .admin-preview-header {
+  display: grid;
+  gap: 4px;
+}
+
+.admin-option-head strong {
+  color: var(--vp-olive);
+  font-size: 0.9rem;
+  font-weight: 950;
+}
+
+.admin-option-head small,
+.admin-option-empty {
+  color: rgba(49, 65, 15, 0.58);
+  font-size: 0.76rem;
+  font-weight: 800;
+}
+
+.admin-option-add,
+.admin-category-form,
+.admin-category-manager-row,
+.admin-option-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 8px;
+  align-items: center;
+}
+
+.admin-category-form,
+.admin-category-manager-row {
+  grid-template-columns: minmax(0, 1.2fr) 76px auto;
+}
+
+.admin-category-manager-row {
+  grid-template-columns: minmax(0, 1.2fr) 76px auto auto;
+}
+
+.admin-option-list,
+.admin-category-manager-list {
+  display: grid;
+  gap: 8px;
+}
+
+.admin-option-row input,
+.admin-category-form input,
+.admin-category-manager-row input {
+  min-width: 0;
+}
+
+.admin-option-row button,
+.admin-option-add button,
+.admin-category-manager-row button {
+  border: 1px solid rgba(49, 65, 15, 0.14);
+  border-radius: 999px;
+  padding: 9px 11px;
+  background: rgba(255, 253, 247, 0.68);
+  color: var(--vp-olive);
+  cursor: pointer;
+  font-size: 0.76rem;
+  font-weight: 900;
+}
+
+.admin-category-manager-row button[data-category-action="delete"],
+.admin-option-row button {
+  color: #9b382f;
 }
 
 .admin-cancel-edit {

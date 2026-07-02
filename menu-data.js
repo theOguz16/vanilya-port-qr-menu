@@ -222,9 +222,26 @@ function normalizeProduct(product, index = 0) {
     isActive: true,
     sortOrder: index * 10,
     image: placeholderImage,
+    options: [],
     ...product,
     category: product.category === "appetizers" ? "snacks" : product.category,
+    options: Array.isArray(product.options)
+      ? product.options.map((option) => String(option).trim()).filter(Boolean)
+      : [],
   };
+}
+
+function applyMenuMeta(data = {}) {
+  if (data.categoryLabels && typeof data.categoryLabels === "object") {
+    Object.keys(categoryLabels).forEach((key) => delete categoryLabels[key]);
+    Object.entries(data.categoryLabels).forEach(([key, value]) => {
+      categoryLabels[key] = String(value);
+    });
+  }
+
+  if (Array.isArray(data.categoryOrder) && data.categoryOrder.length > 0) {
+    categoryOrder.splice(0, categoryOrder.length, ...data.categoryOrder.map(String));
+  }
 }
 
 function readLocalProducts() {
@@ -274,6 +291,7 @@ async function readProducts(options = {}) {
 
   try {
     const data = await apiRequest(endpoint);
+    applyMenuMeta(data);
     return Array.isArray(data.products)
       ? data.products.map(normalizeProduct)
       : defaultProducts.map(normalizeProduct);
@@ -308,6 +326,38 @@ async function deleteProduct(productId) {
   });
 }
 
+async function readCategories() {
+  const data = await apiRequest("/api/admin/categories");
+  applyMenuMeta(data);
+  return Array.isArray(data.categories) ? data.categories : [];
+}
+
+async function addCategory(category) {
+  const data = await apiRequest("/api/admin/categories", {
+    method: "POST",
+    body: JSON.stringify(category),
+  });
+  applyMenuMeta(data);
+  return data.category;
+}
+
+async function updateCategory(categoryId, category) {
+  const data = await apiRequest(`/api/admin/categories/${encodeURIComponent(categoryId)}`, {
+    method: "PUT",
+    body: JSON.stringify(category),
+  });
+  applyMenuMeta(data);
+  return data.category;
+}
+
+async function deleteCategory(categoryId) {
+  const data = await apiRequest(`/api/admin/categories/${encodeURIComponent(categoryId)}`, {
+    method: "DELETE",
+  });
+  applyMenuMeta(data);
+  return data;
+}
+
 async function login(username, password) {
   return apiRequest("/api/admin/login", {
     method: "POST",
@@ -333,17 +383,21 @@ async function checkSession() {
 
 window.VanilyaMenuStore = {
   addProduct,
+  addCategory,
   categoryLabels,
   categoryOrder,
   checkSession,
+  deleteCategory,
   deleteProduct,
   defaultProducts,
   login,
   logout,
   placeholderImage,
+  readCategories,
   readProducts,
   readLocalProducts,
   saveProducts,
+  updateCategory,
   updateProduct,
 };
 

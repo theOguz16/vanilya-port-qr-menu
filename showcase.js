@@ -15,6 +15,7 @@ const altSheetImage = document.querySelector("#altSheetImage");
 const altSheetCategory = document.querySelector("#altSheetCategory");
 const altSheetTitle = document.querySelector("#altSheetTitle");
 const altSheetDescription = document.querySelector("#altSheetDescription");
+const altSheetOptions = document.querySelector("#altSheetOptions");
 const altSheetPrice = document.querySelector("#altSheetPrice");
 const altSheetCalories = document.querySelector("#altSheetCalories");
 
@@ -264,6 +265,14 @@ function openProductSheet(product) {
   altSheetCategory.textContent = showcaseLabels[product.category] || "Menü";
   altSheetTitle.textContent = product.name;
   altSheetDescription.textContent = product.description || "Vanilya Port seçkisinden özel lezzet.";
+  altSheetOptions.innerHTML = "";
+  const options = Array.isArray(product.options) ? product.options : [];
+  altSheetOptions.hidden = options.length === 0;
+  options.forEach((option) => {
+    const chip = document.createElement("span");
+    chip.textContent = option;
+    altSheetOptions.append(chip);
+  });
   altSheetPrice.textContent = normalizePrice(product.price);
   altSheetCalories.textContent = product.calories || "";
   productSheetAlt.classList.add("is-open");

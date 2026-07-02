@@ -1,10 +1,6 @@
 const store = window.VanilyaMenuStore || window.NovaMenuStore;
 const categories = store.categoryOrder;
-const pages = [
-  { type: "cover", label: "Hoş geldiniz" },
-  ...categories.map((category) => ({ type: "category", category, label: store.categoryLabels[category] })),
-  { type: "social", label: "Instagram" },
-];
+let pages = [];
 const labels = store.categoryLabels;
 
 let pageIndex = 0;
@@ -26,6 +22,18 @@ const sheetTitle = document.querySelector("#sheetTitle");
 const sheetDescription = document.querySelector("#sheetDescription");
 const sheetPrice = document.querySelector("#sheetPrice");
 const sheetCalories = document.querySelector("#sheetCalories");
+const sheetOptions = document.querySelector("#sheetOptions");
+
+function buildPages() {
+  pages = [
+    { type: "cover", label: "Hoş geldiniz" },
+    ...categories.map((category) => ({ type: "category", category, label: labels[category] })),
+    { type: "social", label: "Instagram" },
+  ];
+  if (pageIndex >= pages.length) {
+    pageIndex = Math.max(0, pages.length - 1);
+  }
+}
 
 function lockMenuViewportHeight() {
   const root = document.documentElement;
@@ -89,6 +97,7 @@ async function initMenu() {
     products = sortProducts(store.defaultProducts || []);
   }
 
+  buildPages();
   renderPage();
 }
 
@@ -281,6 +290,14 @@ function openSheet(product) {
   sheetDescription.textContent = product.description;
   sheetPrice.textContent = product.price;
   sheetCalories.textContent = product.calories || "";
+  sheetOptions.innerHTML = "";
+  const options = Array.isArray(product.options) ? product.options : [];
+  sheetOptions.hidden = options.length === 0;
+  options.forEach((option) => {
+    const chip = document.createElement("span");
+    chip.textContent = option;
+    sheetOptions.append(chip);
+  });
   productSheet.classList.add("is-open");
   productSheet.setAttribute("aria-hidden", "false");
 }

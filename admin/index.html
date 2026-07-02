@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Vanilya Port Yönetim | QR Menü</title>
     <meta name="description" content="QR menü ürün ekleme paneli." />
-    <link rel="stylesheet" href="../styles.css?v=20260701-overflow-polish-2" />
+    <link rel="stylesheet" href="../styles.css?v=20260702-options-categories" />
   </head>
   <body class="admin-page">
     <section class="admin-login" id="adminLogin">
@@ -53,12 +53,7 @@
           </label>
           <label>
             Kategori
-            <select name="category" required>
-              <option value="coldDrinks">Soğuk İçecekler</option>
-              <option value="hotDrinks">Sıcak İçecekler</option>
-              <option value="desserts">Tatlılar</option>
-              <option value="snacks">Atıştırmalıklar</option>
-            </select>
+            <select name="category" id="categorySelect" required></select>
           </label>
           <label>
             Kalori
@@ -84,6 +79,19 @@
               required
             ></textarea>
           </label>
+          <div class="admin-option-editor full-row">
+            <div class="admin-option-head">
+              <span>
+                <strong>Ürün seçenekleri</strong>
+                <small>Örn. Çilekli, Vanilyalı, Karamelli veya Tavuk, Et.</small>
+              </span>
+            </div>
+            <div class="admin-option-add">
+              <input id="optionInput" type="text" placeholder="Seçenek adı yaz" />
+              <button class="secondary-link" id="addOptionButton" type="button">Seçenek ekle</button>
+            </div>
+            <div class="admin-option-list" id="optionList"></div>
+          </div>
           <label class="upload-box full-row" for="imageInput">
             <input id="imageInput" name="image" type="file" accept="image/*" />
             <span>
@@ -108,11 +116,23 @@
           </div>
           <div class="admin-category-tabs" id="adminCategoryTabs" aria-label="Kategori filtreleri"></div>
           <div class="admin-products" id="adminProducts"></div>
+          <div class="admin-category-manager">
+            <div class="admin-preview-header">
+              <span class="panel-index">Kategoriler</span>
+            </div>
+            <form class="admin-category-form" id="categoryForm">
+              <input name="label" type="text" placeholder="Yeni kategori adı" required />
+              <input name="sortOrder" type="number" placeholder="Sıra" value="10" required />
+              <button class="save-button" type="submit">Kategori ekle</button>
+            </form>
+            <div class="admin-category-manager-list" id="categoryManagerList"></div>
+            <p class="form-status" id="categoryStatus" role="status" aria-live="polite"></p>
+          </div>
         </aside>
       </section>
     </main>
 
-    <script src="../menu-data.js?v=20260701-backend"></script>
-    <script src="./admin.js?v=20260701-backend"></script>
+    <script src="../menu-data.js?v=20260702-options-categories"></script>
+    <script src="./admin.js?v=20260702-options-categories"></script>
   </body>
 </html>

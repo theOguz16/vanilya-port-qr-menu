@@ -10,6 +10,13 @@ const formStatus = document.querySelector("#formStatus");
 const adminProducts = document.querySelector("#adminProducts");
 const adminCount = document.querySelector("#adminCount");
 const adminCategoryTabs = document.querySelector("#adminCategoryTabs");
+const categorySelect = document.querySelector("#categorySelect");
+const optionInput = document.querySelector("#optionInput");
+const optionList = document.querySelector("#optionList");
+const addOptionButton = document.querySelector("#addOptionButton");
+const categoryForm = document.querySelector("#categoryForm");
+const categoryManagerList = document.querySelector("#categoryManagerList");
+const categoryStatus = document.querySelector("#categoryStatus");
 const saveButton = document.querySelector("#saveButton");
 const cancelEdit = document.querySelector("#cancelEdit");
 const store = window.VanilyaMenuStore || window.NovaMenuStore;
@@ -18,6 +25,8 @@ let uploadedImage = "";
 let editingProductId = "";
 let selectedCategory = store.categoryOrder[0];
 let productsCache = [];
+let categoriesCache = [];
+let productOptions = [];
 
 function escapeHtml(value) {
   return String(value ?? "")
@@ -62,10 +71,49 @@ async function loadProducts() {
   productsCache = await store.readProducts({ includeInactive: true, requireApi: true });
 }
 
+async function loadCategories() {
+  categoriesCache = await store.readCategories();
+  if (!store.categoryOrder.includes(selectedCategory)) {
+    selectedCategory = store.categoryOrder[0] || "";
+  }
+}
+
+function renderCategorySelect() {
+  categorySelect.innerHTML = "";
+  store.categoryOrder.forEach((category) => {
+    const option = document.createElement("option");
+    option.value = category;
+    option.textContent = store.categoryLabels[category] || category;
+    categorySelect.append(option);
+  });
+}
+
+function renderOptionList() {
+  optionList.innerHTML = "";
+
+  if (productOptions.length === 0) {
+    optionList.innerHTML = `<span class="admin-option-empty">Henüz seçenek eklenmedi.</span>`;
+    return;
+  }
+
+  productOptions.forEach((option, index) => {
+    const row = document.createElement("div");
+    row.className = "admin-option-row";
+    row.innerHTML = `
+      <input type="text" value="${escapeHtml(option)}" data-option-index="${index}" aria-label="Seçenek" />
+      <button type="button" data-option-action="delete" data-option-index="${index}">Sil</button>
+    `;
+    optionList.append(row);
+  });
+}
+
 function resetFormState(message = "") {
   form.reset();
   uploadedImage = "";
   editingProductId = "";
+  productOptions = [];
+  renderOptionList();
+  renderCategorySelect();
   imagePreview.removeAttribute("src");
   imagePreview.classList.remove("is-visible");
   saveButton.textContent = "Ürünü ekle";
@@ -88,6 +136,23 @@ function renderCategoryTabs() {
       <strong>${count}</strong>
     `;
     adminCategoryTabs.appendChild(button);
+  });
+}
+
+function renderCategoryManager() {
+  categoryManagerList.innerHTML = "";
+
+  categoriesCache.forEach((category) => {
+    const row = document.createElement("div");
+    row.className = "admin-category-manager-row";
+    row.dataset.category = category.id;
+    row.innerHTML = `
+      <input name="label" type="text" value="${escapeHtml(category.label)}" aria-label="Kategori adı" />
+      <input name="sortOrder" type="number" value="${escapeHtml(category.sortOrder ?? 0)}" aria-label="Sıra" />
+      <button type="button" data-category-action="save">Güncelle</button>
+      <button type="button" data-category-action="delete">Sil</button>
+    `;
+    categoryManagerList.append(row);
   });
 }
 
@@ -116,7 +181,7 @@ function renderAdminProducts() {
       <img src="${escapeHtml(product.image || store.placeholderImage)}" alt="${escapeHtml(product.name)}" />
       <span class="admin-product-copy">
         <strong>${escapeHtml(product.name)}</strong>
-        <small>${escapeHtml(product.calories)} · Sıra ${escapeHtml(product.sortOrder ?? 0)}</small>
+        <small>${escapeHtml(product.calories)} · ${escapeHtml((product.options || []).length)} seçenek · Sıra ${escapeHtml(product.sortOrder ?? 0)}</small>
       </span>
       <b>${escapeHtml(product.price)}</b>
       <em>${product.isActive === false ? "Pasif" : "Aktif"}</em>
@@ -139,6 +204,7 @@ function productFromForm(existingProduct) {
     category: formData.get("category"),
     calories: formData.get("calories").trim(),
     description: formData.get("description").trim(),
+    options: productOptions.map((option) => option.trim()).filter(Boolean),
     image: uploadedImage || existingProduct?.image || store.placeholderImage,
     isActive: formData.get("isActive") === "true",
     sortOrder: Number(formData.get("sortOrder")) || 0,
@@ -161,6 +227,8 @@ function startEdit(productId) {
   form.elements.sortOrder.value = product.sortOrder ?? 0;
   form.elements.isActive.value = product.isActive === false ? "false" : "true";
   form.elements.description.value = product.description || "";
+  productOptions = Array.isArray(product.options) ? [...product.options] : [];
+  renderOptionList();
   imagePreview.src = product.image || store.placeholderImage;
   imagePreview.classList.add("is-visible");
   saveButton.textContent = "Ürünü güncelle";
@@ -189,7 +257,11 @@ async function deleteProduct(productId) {
 
 async function refreshDashboard() {
   await loadProducts();
+  await loadCategories();
   showDashboard();
+  renderCategorySelect();
+  renderCategoryManager();
+  renderOptionList();
   renderAdminProducts();
 }
 
@@ -206,6 +278,40 @@ imageInput.addEventListener("change", async () => {
   uploadedImage = await fileToDataUrl(file);
   imagePreview.src = uploadedImage;
   imagePreview.classList.add("is-visible");
+});
+
+addOptionButton.addEventListener("click", () => {
+  const value = optionInput.value.trim();
+  if (!value) {
+    return;
+  }
+  productOptions.push(value);
+  optionInput.value = "";
+  renderOptionList();
+});
+
+optionInput.addEventListener("keydown", (event) => {
+  if (event.key === "Enter") {
+    event.preventDefault();
+    addOptionButton.click();
+  }
+});
+
+optionList.addEventListener("input", (event) => {
+  const input = event.target.closest("[data-option-index]");
+  if (!input) {
+    return;
+  }
+  productOptions[Number(input.dataset.optionIndex)] = input.value;
+});
+
+optionList.addEventListener("click", (event) => {
+  const button = event.target.closest("[data-option-action='delete']");
+  if (!button) {
+    return;
+  }
+  productOptions.splice(Number(button.dataset.optionIndex), 1);
+  renderOptionList();
 });
 
 loginForm.addEventListener("submit", async (event) => {
@@ -226,6 +332,7 @@ logoutButton.addEventListener("click", async () => {
   await store.logout();
   resetFormState();
   productsCache = [];
+  categoriesCache = [];
   showLogin("Oturum kapatıldı.");
 });
 
@@ -255,6 +362,67 @@ adminProducts.addEventListener("click", (event) => {
     deleteProduct(button.dataset.id).catch((error) => {
       formStatus.textContent = error.message || "Ürün silinemedi.";
     });
+  }
+});
+
+categoryForm.addEventListener("submit", async (event) => {
+  event.preventDefault();
+  const formData = new FormData(categoryForm);
+  categoryStatus.textContent = "Kategori kaydediliyor...";
+
+  try {
+    const category = await store.addCategory({
+      label: formData.get("label").trim(),
+      sortOrder: Number(formData.get("sortOrder")) || 0,
+    });
+    selectedCategory = category.id;
+    categoryForm.reset();
+    categoryForm.elements.sortOrder.value = "10";
+    await loadCategories();
+    renderCategorySelect();
+    renderCategoryManager();
+    renderAdminProducts();
+    categoryStatus.textContent = `${category.label} kategorisi eklendi.`;
+  } catch (error) {
+    categoryStatus.textContent = error.message || "Kategori eklenemedi.";
+  }
+});
+
+categoryManagerList.addEventListener("click", async (event) => {
+  const button = event.target.closest("[data-category-action]");
+  const row = event.target.closest("[data-category]");
+  if (!button || !row) {
+    return;
+  }
+
+  const categoryId = row.dataset.category;
+  const category = categoriesCache.find((item) => item.id === categoryId);
+  const label = row.querySelector("input[name='label']").value.trim();
+  const sortOrder = Number(row.querySelector("input[name='sortOrder']").value) || 0;
+
+  try {
+    if (button.dataset.categoryAction === "save") {
+      const updated = await store.updateCategory(categoryId, { label, sortOrder });
+      await loadCategories();
+      renderCategorySelect();
+      renderCategoryManager();
+      renderAdminProducts();
+      categoryStatus.textContent = `${updated.label} güncellendi.`;
+    }
+
+    if (button.dataset.categoryAction === "delete") {
+      if (!category || !window.confirm(`${category.label} kategorisi silinsin mi?`)) {
+        return;
+      }
+      await store.deleteCategory(categoryId);
+      await loadCategories();
+      renderCategorySelect();
+      renderCategoryManager();
+      renderAdminProducts();
+      categoryStatus.textContent = `${category.label} silindi.`;
+    }
+  } catch (error) {
+    categoryStatus.textContent = error.message || "Kategori işlemi tamamlanamadı.";
   }
 });
 

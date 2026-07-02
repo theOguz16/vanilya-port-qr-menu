@@ -23,13 +23,13 @@ SESSION_COOKIE = "vp_session"
 ADMIN_USERNAME = "VanilyaPort"
 ADMIN_PASSWORD = "Vanilya2017Port"
 
-CATEGORY_LABELS = {
+DEFAULT_CATEGORY_LABELS = {
     "coldDrinks": "Soğuk İçecekler",
     "hotDrinks": "Sıcak İçecekler",
     "desserts": "Tatlılar",
     "snacks": "Atıştırmalıklar",
 }
-CATEGORY_ORDER = ["coldDrinks", "hotDrinks", "desserts", "snacks"]
+DEFAULT_CATEGORY_ORDER = ["coldDrinks", "hotDrinks", "desserts", "snacks"]
 PLACEHOLDER_IMAGE = "./assets/vanilya-port-logo.jpg"
 
 SEED_PRODUCTS = [
@@ -233,6 +233,11 @@ def db_connect():
     return conn
 
 
+def column_exists(conn, table, column):
+    rows = conn.execute(f"PRAGMA table_info({table})").fetchall()
+    return any(row["name"] == column for row in rows)
+
+
 def init_db():
     DATA_DIR.mkdir(exist_ok=True)
     UPLOAD_DIR.mkdir(exist_ok=True)
@@ -254,6 +259,19 @@ def init_db():
             )
             """
         )
+        if not column_exists(conn, "products", "options_json"):
+            conn.execute("ALTER TABLE products ADD COLUMN options_json TEXT NOT NULL DEFAULT '[]'")
+        conn.execute(
+            """
+            CREATE TABLE IF NOT EXISTS categories (
+                id TEXT PRIMARY KEY,
+                label TEXT NOT NULL,
+                sort_order INTEGER NOT NULL DEFAULT 0,
+                created_at TEXT NOT NULL,
+                updated_at TEXT NOT NULL
+            )
+            """
+        )
         conn.execute(
             """
             CREATE TABLE IF NOT EXISTS sessions (
@@ -262,6 +280,19 @@ def init_db():
             )
             """
         )
+        category_count = conn.execute("SELECT COUNT(*) AS count FROM categories").fetchone()["count"]
+        if category_count == 0:
+            now = utc_now()
+            conn.executemany(
+                """
+                INSERT INTO categories (id, label, sort_order, created_at, updated_at)
+                VALUES (?, ?, ?, ?, ?)
+                """,
+                [
+                    (category, DEFAULT_CATEGORY_LABELS[category], index * 10, now, now)
+                    for index, category in enumerate(DEFAULT_CATEGORY_ORDER)
+                ],
+            )
         count = conn.execute("SELECT COUNT(*) AS count FROM products").fetchone()["count"]
         if count == 0:
             now = utc_now()
@@ -269,11 +300,11 @@ def init_db():
                 """
                 INSERT INTO products (
                     id, name, price, calories, category, description, image,
-                    is_active, sort_order, created_at, updated_at
+                    is_active, sort_order, options_json, created_at, updated_at
                 )
                 VALUES (
                     :id, :name, :price, :calories, :category, :description, :image,
-                    :is_active, :sort_order, :created_at, :updated_at
+                    :is_active, :sort_order, :options_json, :created_at, :updated_at
                 )
                 """,
                 [
@@ -281,6 +312,7 @@ def init_db():
                         **product,
                         "is_active": 1 if product["isActive"] else 0,
                         "sort_order": product["sortOrder"],
+                        "options_json": json.dumps(product.get("options", []), ensure_ascii=False),
                         "created_at": now,
                         "updated_at": now,
                     }
@@ -290,6 +322,11 @@ def init_db():
 
 
 def product_from_row(row):
+    try:
+        options = json.loads(row["options_json"] or "[]")
+    except (TypeError, json.JSONDecodeError):
+        options = []
+
     return {
         "id": row["id"],
         "name": row["name"],
@@ -298,6 +335,7 @@ def product_from_row(row):
         "category": row["category"],
         "description": row["description"],
         "image": row["image"],
+        "options": [str(option).strip() for option in options if str(option).strip()],
         "isActive": bool(row["is_active"]),
         "sortOrder": row["sort_order"],
         "createdAt": row["created_at"],
@@ -305,21 +343,57 @@ def product_from_row(row):
     }
 
 
-def products_payload(products):
+def category_from_row(row):
+    return {
+        "id": row["id"],
+        "label": row["label"],
+        "sortOrder": row["sort_order"],
+        "createdAt": row["created_at"],
+        "updatedAt": row["updated_at"],
+    }
+
+
+def category_meta(conn):
+    rows = conn.execute("SELECT * FROM categories ORDER BY sort_order, label").fetchall()
+    categories = [category_from_row(row) for row in rows]
+    if not categories:
+        categories = [
+            {"id": category, "label": DEFAULT_CATEGORY_LABELS[category], "sortOrder": index * 10}
+            for index, category in enumerate(DEFAULT_CATEGORY_ORDER)
+        ]
+    return {
+        "categories": categories,
+        "categoryLabels": {category["id"]: category["label"] for category in categories},
+        "categoryOrder": [category["id"] for category in categories],
+    }
+
+
+def products_payload(products, meta):
     return {
         "products": products,
-        "categoryLabels": CATEGORY_LABELS,
-        "categoryOrder": CATEGORY_ORDER,
+        "categories": meta["categories"],
+        "categoryLabels": meta["categoryLabels"],
+        "categoryOrder": meta["categoryOrder"],
         "placeholderImage": PLACEHOLDER_IMAGE,
     }
 
 
-def normalize_payload(payload):
+def normalize_options(value):
+    if isinstance(value, list):
+        source = value
+    elif isinstance(value, str):
+        source = value.splitlines()
+    else:
+        source = []
+    return [str(option).strip() for option in source if str(option).strip()]
+
+
+def normalize_payload(payload, category_labels):
     category = payload.get("category") or "coldDrinks"
     if category == "appetizers":
         category = "snacks"
-    if category not in CATEGORY_LABELS:
-        category = "coldDrinks"
+    if category not in category_labels:
+        category = next(iter(category_labels), "coldDrinks")
 
     return {
         "id": str(payload.get("id") or f"urun-{int(time.time() * 1000)}-{secrets.token_hex(3)}"),
@@ -329,7 +403,35 @@ def normalize_payload(payload):
         "category": category,
         "description": str(payload.get("description") or "").strip(),
         "image": str(payload.get("image") or PLACEHOLDER_IMAGE).strip(),
+        "options_json": json.dumps(normalize_options(payload.get("options")), ensure_ascii=False),
         "is_active": 1 if payload.get("isActive", True) is not False else 0,
+        "sort_order": int(payload.get("sortOrder") or 0),
+    }
+
+
+def category_id_from_label(label):
+    value = str(label or "").strip().lower()
+    replacements = str.maketrans("çğıöşüı", "cgiosui")
+    value = value.translate(replacements)
+    slug = []
+    previous_dash = False
+    for char in value:
+        if char.isalnum():
+            slug.append(char)
+            previous_dash = False
+        elif not previous_dash:
+            slug.append("-")
+            previous_dash = True
+    result = "".join(slug).strip("-")
+    return result or f"kategori-{int(time.time() * 1000)}"
+
+
+def normalize_category_payload(payload, existing_id=""):
+    label = str(payload.get("label") or "").strip()
+    category_id = str(payload.get("id") or existing_id or category_id_from_label(label)).strip()
+    return {
+        "id": category_id,
+        "label": label,
         "sort_order": int(payload.get("sortOrder") or 0),
     }
 
@@ -381,6 +483,8 @@ class VanilyaPortHandler(BaseHTTPRequestHandler):
             return self.handle_products(active_only=True)
         if path == "/api/admin/products":
             return self.with_auth(lambda: self.handle_products(active_only=False))
+        if path == "/api/admin/categories":
+            return self.with_auth(self.handle_categories)
         if path == "/api/admin/session":
             return self.write_json({"ok": self.is_authenticated()})
         return self.serve_static(path)
@@ -393,6 +497,8 @@ class VanilyaPortHandler(BaseHTTPRequestHandler):
             return self.handle_logout()
         if path == "/api/admin/products":
             return self.with_auth(self.create_product)
+        if path == "/api/admin/categories":
+            return self.with_auth(self.create_category)
         return self.write_json({"error": "Bulunamadı."}, HTTPStatus.NOT_FOUND)
 
     def do_PUT(self):
@@ -400,6 +506,9 @@ class VanilyaPortHandler(BaseHTTPRequestHandler):
         if path.startswith("/api/admin/products/"):
             product_id = unquote(path.rsplit("/", 1)[-1])
             return self.with_auth(lambda: self.update_product(product_id))
+        if path.startswith("/api/admin/categories/"):
+            category_id = unquote(path.rsplit("/", 1)[-1])
+            return self.with_auth(lambda: self.update_category(category_id))
         return self.write_json({"error": "Bulunamadı."}, HTTPStatus.NOT_FOUND)
 
     def do_DELETE(self):
@@ -407,14 +516,18 @@ class VanilyaPortHandler(BaseHTTPRequestHandler):
         if path.startswith("/api/admin/products/"):
             product_id = unquote(path.rsplit("/", 1)[-1])
             return self.with_auth(lambda: self.delete_product(product_id))
+        if path.startswith("/api/admin/categories/"):
+            category_id = unquote(path.rsplit("/", 1)[-1])
+            return self.with_auth(lambda: self.delete_category(category_id))
         return self.write_json({"error": "Bulunamadı."}, HTTPStatus.NOT_FOUND)
 
     def handle_products(self, active_only):
         where = "WHERE is_active = 1" if active_only else ""
-        rank_case = " ".join(
-            f"WHEN '{category}' THEN {index}" for index, category in enumerate(CATEGORY_ORDER)
-        )
         with db_connect() as conn:
+            meta = category_meta(conn)
+            rank_case = " ".join(
+                f"WHEN '{category}' THEN {index}" for index, category in enumerate(meta["categoryOrder"])
+            )
             rows = conn.execute(
                 f"""
                 SELECT * FROM products
@@ -422,7 +535,76 @@ class VanilyaPortHandler(BaseHTTPRequestHandler):
                 ORDER BY CASE category {rank_case} ELSE 99 END, sort_order, name
                 """
             ).fetchall()
-        return self.write_json(products_payload([product_from_row(row) for row in rows]))
+        return self.write_json(products_payload([product_from_row(row) for row in rows], meta))
+
+    def handle_categories(self):
+        with db_connect() as conn:
+            meta = category_meta(conn)
+        return self.write_json({"categories": meta["categories"], "categoryLabels": meta["categoryLabels"], "categoryOrder": meta["categoryOrder"]})
+
+    def create_category(self):
+        payload = normalize_category_payload(self.read_json())
+        if not payload["label"]:
+            return self.write_json({"error": "Kategori adı zorunlu."}, HTTPStatus.BAD_REQUEST)
+
+        now = utc_now()
+        with db_connect() as conn:
+            existing = conn.execute("SELECT id FROM categories WHERE id = ?", (payload["id"],)).fetchone()
+            if existing:
+                payload["id"] = f"{payload['id']}-{secrets.token_hex(2)}"
+            conn.execute(
+                """
+                INSERT INTO categories (id, label, sort_order, created_at, updated_at)
+                VALUES (?, ?, ?, ?, ?)
+                """,
+                (payload["id"], payload["label"], payload["sort_order"], now, now),
+            )
+            row = conn.execute("SELECT * FROM categories WHERE id = ?", (payload["id"],)).fetchone()
+            meta = category_meta(conn)
+        return self.write_json({"category": category_from_row(row), **meta}, HTTPStatus.CREATED)
+
+    def update_category(self, category_id):
+        payload = normalize_category_payload(self.read_json(), existing_id=category_id)
+        if not payload["label"]:
+            return self.write_json({"error": "Kategori adı zorunlu."}, HTTPStatus.BAD_REQUEST)
+
+        now = utc_now()
+        with db_connect() as conn:
+            existing = conn.execute("SELECT * FROM categories WHERE id = ?", (category_id,)).fetchone()
+            if not existing:
+                return self.write_json({"error": "Kategori bulunamadı."}, HTTPStatus.NOT_FOUND)
+            conn.execute(
+                """
+                UPDATE categories
+                SET label = ?, sort_order = ?, updated_at = ?
+                WHERE id = ?
+                """,
+                (payload["label"], payload["sort_order"], now, category_id),
+            )
+            row = conn.execute("SELECT * FROM categories WHERE id = ?", (category_id,)).fetchone()
+            meta = category_meta(conn)
+        return self.write_json({"category": category_from_row(row), **meta})
+
+    def delete_category(self, category_id):
+        with db_connect() as conn:
+            existing = conn.execute("SELECT * FROM categories WHERE id = ?", (category_id,)).fetchone()
+            if not existing:
+                return self.write_json({"error": "Kategori bulunamadı."}, HTTPStatus.NOT_FOUND)
+            category_count = conn.execute("SELECT COUNT(*) AS count FROM categories").fetchone()["count"]
+            if category_count <= 1:
+                return self.write_json({"error": "Son kategori silinemez."}, HTTPStatus.BAD_REQUEST)
+            product_count = conn.execute(
+                "SELECT COUNT(*) AS count FROM products WHERE category = ?",
+                (category_id,),
+            ).fetchone()["count"]
+            if product_count:
+                return self.write_json(
+                    {"error": "Bu kategoride ürün var. Önce ürünleri başka kategoriye taşı veya sil."},
+                    HTTPStatus.BAD_REQUEST,
+                )
+            conn.execute("DELETE FROM categories WHERE id = ?", (category_id,))
+            meta = category_meta(conn)
+        return self.write_json({"ok": True, "deleted": category_id, **meta})
 
     def handle_login(self):
         payload = self.read_json()
@@ -459,7 +641,9 @@ class VanilyaPortHandler(BaseHTTPRequestHandler):
         self.wfile.write(json.dumps({"ok": True}).encode("utf-8"))
 
     def create_product(self):
-        payload = normalize_payload(self.read_json())
+        with db_connect() as conn:
+            meta = category_meta(conn)
+        payload = normalize_payload(self.read_json(), meta["categoryLabels"])
         if not all([payload["name"], payload["price"], payload["calories"], payload["description"]]):
             return self.write_json({"error": "Ürün adı, fiyat, kalori ve açıklama zorunlu."}, HTTPStatus.BAD_REQUEST)
         try:
@@ -473,9 +657,9 @@ class VanilyaPortHandler(BaseHTTPRequestHandler):
                 """
                 INSERT INTO products (
                     id, name, price, calories, category, description, image,
-                    is_active, sort_order, created_at, updated_at
+                    is_active, sort_order, options_json, created_at, updated_at
                 )
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                 """,
                 (
                     payload["id"],
@@ -487,6 +671,7 @@ class VanilyaPortHandler(BaseHTTPRequestHandler):
                     payload["image"],
                     payload["is_active"],
                     payload["sort_order"],
+                    payload["options_json"],
                     now,
                     now,
                 ),
@@ -495,7 +680,9 @@ class VanilyaPortHandler(BaseHTTPRequestHandler):
         return self.write_json({"product": product_from_row(row)}, HTTPStatus.CREATED)
 
     def update_product(self, product_id):
-        payload = normalize_payload({**self.read_json(), "id": product_id})
+        with db_connect() as conn:
+            meta = category_meta(conn)
+        payload = normalize_payload({**self.read_json(), "id": product_id}, meta["categoryLabels"])
         try:
             payload["image"] = save_data_url(payload["image"])
         except ValueError as exc:
@@ -510,7 +697,7 @@ class VanilyaPortHandler(BaseHTTPRequestHandler):
                 """
                 UPDATE products
                 SET name = ?, price = ?, calories = ?, category = ?, description = ?,
-                    image = ?, is_active = ?, sort_order = ?, updated_at = ?
+                    image = ?, is_active = ?, sort_order = ?, options_json = ?, updated_at = ?
                 WHERE id = ?
                 """,
                 (
@@ -522,6 +709,7 @@ class VanilyaPortHandler(BaseHTTPRequestHandler):
                     payload["image"],
                     payload["is_active"],
                     payload["sort_order"],
+                    payload["options_json"],
                     now,
                     product_id,
                 ),
