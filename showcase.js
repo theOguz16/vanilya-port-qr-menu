@@ -20,6 +20,8 @@ const altSheetCalories = document.querySelector("#altSheetCalories");
 
 let showcaseProducts = [];
 let sectionObserver = null;
+let categoryScrollLock = null;
+let categoryScrollLockTimer = null;
 
 function normalizePrice(price) {
   return String(price || "").replace("TL", "₺").trim();
@@ -186,6 +188,10 @@ function observeSections() {
 
   sectionObserver = new IntersectionObserver(
     (entries) => {
+      if (categoryScrollLock) {
+        return;
+      }
+
       const visible = entries
         .filter((entry) => entry.isIntersecting)
         .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
@@ -206,12 +212,22 @@ function scrollToCategory(category) {
     return;
   }
 
+  categoryScrollLock = category;
+  window.clearTimeout(categoryScrollLockTimer);
+  setActiveCategory(category);
+
   const targetTop = window.scrollY + section.getBoundingClientRect().top - stickyOffset();
   window.scrollTo({ top: Math.max(0, targetTop), behavior: "smooth" });
-  setActiveCategory(category);
+
+  categoryScrollLockTimer = window.setTimeout(() => {
+    categoryScrollLock = null;
+    setActiveCategory(category);
+  }, 760);
 }
 
 function showMenu(category = showcaseCategories[0]) {
+  categoryScrollLock = null;
+  window.clearTimeout(categoryScrollLockTimer);
   categoryView.hidden = true;
   menuView.hidden = false;
   document.querySelector(".showcase-app").dataset.view = "menu";
