@@ -31,6 +31,14 @@ DEFAULT_CATEGORY_LABELS = {
 }
 DEFAULT_CATEGORY_ORDER = ["coldDrinks", "hotDrinks", "desserts", "snacks"]
 PLACEHOLDER_IMAGE = "./assets/vanilya-port-logo.jpg"
+DEFAULT_PRODUCT_OPTIONS = {
+    "ice-latte": ["Klasik", "Vanilyalı", "Karamelli"],
+    "milkshake": ["Çilekli", "Vanilyalı", "Karamelli"],
+    "limonata": ["Klasik", "Naneli", "Çilekli"],
+    "brownie": ["Sade", "Dondurmalı"],
+    "citir-tavuk": ["Acısız", "Acılı"],
+    "tost": ["Kaşarlı", "Sucuklu", "Karışık"],
+}
 
 SEED_PRODUCTS = [
     {
@@ -41,6 +49,7 @@ SEED_PRODUCTS = [
         "category": "coldDrinks",
         "description": "Buz, espresso ve soğuk sütle ferah yaz klasiği.",
         "image": "https://images.unsplash.com/photo-1461023058943-07fcbe16d735?auto=format&fit=crop&w=900&q=80",
+        "options": DEFAULT_PRODUCT_OPTIONS["ice-latte"],
         "isActive": True,
         "sortOrder": 10,
     },
@@ -52,6 +61,7 @@ SEED_PRODUCTS = [
         "category": "coldDrinks",
         "description": "Taze limon, nane ve hafif şeker dengesiyle hazırlanır.",
         "image": "https://images.unsplash.com/photo-1621263764928-df1444c5e859?auto=format&fit=crop&w=900&q=80",
+        "options": DEFAULT_PRODUCT_OPTIONS["limonata"],
         "isActive": True,
         "sortOrder": 20,
     },
@@ -63,6 +73,7 @@ SEED_PRODUCTS = [
         "category": "coldDrinks",
         "description": "Vanilya aromalı kremamsı milkshake, soğuk servis.",
         "image": "https://images.unsplash.com/photo-1572490122747-3968b75cc699?auto=format&fit=crop&w=900&q=80",
+        "options": DEFAULT_PRODUCT_OPTIONS["milkshake"],
         "isActive": True,
         "sortOrder": 30,
     },
@@ -140,6 +151,7 @@ SEED_PRODUCTS = [
         "category": "desserts",
         "description": "Yoğun çikolata, nemli doku ve vanilyalı dondurma eşliği.",
         "image": "https://images.unsplash.com/photo-1606313564200-e75d5e30476c?auto=format&fit=crop&w=900&q=80",
+        "options": DEFAULT_PRODUCT_OPTIONS["brownie"],
         "isActive": True,
         "sortOrder": 20,
     },
@@ -184,6 +196,7 @@ SEED_PRODUCTS = [
         "category": "snacks",
         "description": "Baharatlı çıtır tavuk parçacıkları, ballı hardal sos ile.",
         "image": "https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?auto=format&fit=crop&w=900&q=80",
+        "options": DEFAULT_PRODUCT_OPTIONS["citir-tavuk"],
         "isActive": True,
         "sortOrder": 30,
     },
@@ -206,6 +219,7 @@ SEED_PRODUCTS = [
         "category": "snacks",
         "description": "Kaşarlı ve sucuklu klasik tost, domates ve yeşillik ile.",
         "image": PLACEHOLDER_IMAGE,
+        "options": DEFAULT_PRODUCT_OPTIONS["tost"],
         "isActive": True,
         "sortOrder": 50,
     },
@@ -261,6 +275,15 @@ def init_db():
         )
         if not column_exists(conn, "products", "options_json"):
             conn.execute("ALTER TABLE products ADD COLUMN options_json TEXT NOT NULL DEFAULT '[]'")
+        for product_id, options in DEFAULT_PRODUCT_OPTIONS.items():
+            conn.execute(
+                """
+                UPDATE products
+                SET options_json = ?
+                WHERE id = ? AND (options_json IS NULL OR options_json = '' OR options_json = '[]')
+                """,
+                (json.dumps(options, ensure_ascii=False), product_id),
+            )
         conn.execute(
             """
             CREATE TABLE IF NOT EXISTS categories (

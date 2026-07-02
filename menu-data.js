@@ -46,6 +46,7 @@ const defaultProducts = [
     description: "Baharatlı çıtır tavuk parçacıkları, ballı hardal sos ile.",
     image:
       "https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?auto=format&fit=crop&w=900&q=80",
+    options: ["Acısız", "Acılı"],
     isActive: true,
     sortOrder: 30,
   },
@@ -105,6 +106,7 @@ const defaultProducts = [
     description: "Buz, espresso ve soğuk sütle ferah yaz klasiği.",
     image:
       "https://images.unsplash.com/photo-1461023058943-07fcbe16d735?auto=format&fit=crop&w=900&q=80",
+    options: ["Klasik", "Vanilyalı", "Karamelli"],
     isActive: true,
     sortOrder: 10,
   },
@@ -117,6 +119,7 @@ const defaultProducts = [
     description: "Taze limon, nane ve hafif şeker dengesiyle hazırlanır.",
     image:
       "https://images.unsplash.com/photo-1621263764928-df1444c5e859?auto=format&fit=crop&w=900&q=80",
+    options: ["Klasik", "Naneli", "Çilekli"],
     isActive: true,
     sortOrder: 20,
   },
@@ -129,6 +132,7 @@ const defaultProducts = [
     description: "Vanilya aromalı kremamsı milkshake, soğuk servis.",
     image:
       "https://images.unsplash.com/photo-1572490122747-3968b75cc699?auto=format&fit=crop&w=900&q=80",
+    options: ["Çilekli", "Vanilyalı", "Karamelli"],
     isActive: true,
     sortOrder: 30,
   },
@@ -165,6 +169,7 @@ const defaultProducts = [
     description: "Yoğun çikolata, nemli doku ve vanilyalı dondurma eşliği.",
     image:
       "https://images.unsplash.com/photo-1606313564200-e75d5e30476c?auto=format&fit=crop&w=900&q=80",
+    options: ["Sade", "Dondurmalı"],
     isActive: true,
     sortOrder: 20,
   },
@@ -200,6 +205,7 @@ const defaultProducts = [
     category: "snacks",
     description: "Kaşarlı ve sucuklu klasik tost, domates ve yeşillik ile.",
     image: placeholderImage,
+    options: ["Kaşarlı", "Sucuklu", "Karışık"],
     isActive: true,
     sortOrder: 50,
   },
