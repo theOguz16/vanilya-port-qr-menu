@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Vanilya Port QR Menü - Showcase</title>
+    <meta
+      name="description"
+      content="Vanilya Port için kategori kartlı alternatif QR menü şablonu."
+    />
+    <link rel="stylesheet" href="./showcase.css?v=20260702-fixed-topbar" />
+  </head>
+  <body>
+    <main class="showcase-app" data-view="categories">
+      <section class="showcase-landing" id="categoryView" aria-labelledby="landingTitle">
+        <header class="showcase-hero">
+          <img class="showcase-logo" src="./assets/vanilya-port-logo.jpg" alt="Vanilya Port logosu" />
+          <p>Food & Drink</p>
+          <h1 id="landingTitle">VANİLYA PORT</h1>
+          <span>Yazlık, sakin ve butik bir kafe deneyimi.</span>
+        </header>
+
+        <section class="category-grid" id="categoryGrid" aria-label="Kategoriler"></section>
+      </section>
+
+      <section class="showcase-menu" id="menuView" aria-labelledby="menuTitle" hidden>
+        <header class="menu-topbar">
+          <button class="back-button" type="button" id="backToCategories" aria-label="Kategorilere dön">
+            ‹
+          </button>
+          <div>
+            <p>THE VANİLYA PORT</p>
+            <h1 id="menuTitle">Menü</h1>
+          </div>
+          <img src="./assets/vanilya-port-logo.jpg" alt="" aria-hidden="true" />
+        </header>
+
+        <p class="menu-note">
+          Fiyatlarımıza KDV dahildir. Ürün görselleri temsilidir.
+        </p>
+
+        <section class="menu-filter-shell" aria-label="Kategori filtreleri">
+          <div class="filter-head">
+            <strong>Kategoriler</strong>
+            <button class="see-all-button" type="button" id="seeAllButton">Tümünü Gör</button>
+          </div>
+          <div class="category-rail" id="categoryRail"></div>
+        </section>
+
+        <section class="product-sections" id="productSections"></section>
+      </section>
+
+      <div class="showcase-sheet" id="productSheetAlt" aria-hidden="true">
+        <button class="sheet-dim" type="button" id="closeSheetAlt" aria-label="Kapat"></button>
+        <article class="alt-sheet-card" role="dialog" aria-modal="true" aria-labelledby="altSheetTitle">
+          <img id="altSheetImage" alt="" />
+          <div class="alt-sheet-content">
+            <span id="altSheetCategory"></span>
+            <h2 id="altSheetTitle"></h2>
+            <p id="altSheetDescription"></p>
+            <footer>
+              <strong id="altSheetPrice"></strong>
+              <small id="altSheetCalories"></small>
+            </footer>
+          </div>
+        </article>
+      </div>
+    </main>
+
+    <script src="./menu-data.js?v=20260701-categories"></script>
+    <script src="./showcase.js?v=20260702-fixed-topbar"></script>
+  </body>
+</html>
