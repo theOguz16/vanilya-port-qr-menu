@@ -23,6 +23,12 @@ let sectionObserver = null;
 let categoryScrollLock = null;
 let categoryScrollLockTimer = null;
 
+function setPageMode(mode) {
+  document.body.classList.toggle("is-landing-locked", mode === "categories");
+  document.body.classList.toggle("is-menu-scroll", mode === "menu");
+  document.querySelector(".showcase-app").dataset.view = mode;
+}
+
 function normalizePrice(price) {
   return String(price || "").replace("TL", "₺").trim();
 }
@@ -228,9 +234,10 @@ function scrollToCategory(category) {
 function showMenu(category = showcaseCategories[0]) {
   categoryScrollLock = null;
   window.clearTimeout(categoryScrollLockTimer);
+  window.scrollTo({ top: 0, behavior: "auto" });
   categoryView.hidden = true;
   menuView.hidden = false;
-  document.querySelector(".showcase-app").dataset.view = "menu";
+  setPageMode("menu");
   window.scrollTo({ top: 0, behavior: "auto" });
   renderCategoryRail();
   renderProductSections();
@@ -243,9 +250,10 @@ function showMenu(category = showcaseCategories[0]) {
 }
 
 function showCategories() {
+  window.scrollTo({ top: 0, behavior: "auto" });
   menuView.hidden = true;
   categoryView.hidden = false;
-  document.querySelector(".showcase-app").dataset.view = "categories";
+  setPageMode("categories");
   sectionObserver?.disconnect();
   window.scrollTo({ top: 0, behavior: "auto" });
 }
@@ -268,6 +276,8 @@ function closeProductSheet() {
 }
 
 async function initShowcase() {
+  setPageMode("categories");
+
   try {
     showcaseProducts = await showcaseStore.readProducts();
   } catch {
@@ -286,5 +296,15 @@ document.addEventListener("keydown", (event) => {
     closeProductSheet();
   }
 });
+
+document.addEventListener(
+  "touchmove",
+  (event) => {
+    if (document.body.classList.contains("is-landing-locked")) {
+      event.preventDefault();
+    }
+  },
+  { passive: false },
+);
 
 initShowcase();
