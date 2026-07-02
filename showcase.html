@@ -8,10 +8,23 @@
       name="description"
       content="Vanilya Port için kategori kartlı alternatif QR menü şablonu."
     />
-    <link rel="stylesheet" href="./showcase.css?v=20260702-fixed-topbar" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./showcase.css?v=20260702-sticky-scroll-fix" />
   </head>
   <body>
     <main class="showcase-app" data-view="categories">
+      <div class="showcase-decor" aria-hidden="true">
+        <img class="decor-palm" src="./assets/beach-palm.svg" alt="" />
+        <img class="decor-umbrella" src="./assets/beach-umbrella.svg" alt="" />
+        <img class="decor-lounger" src="./assets/beach-lounger.svg" alt="" />
+        <img class="decor-waves" src="./assets/beach-waves.svg" alt="" />
+      </div>
+
       <section class="showcase-landing" id="categoryView" aria-labelledby="landingTitle">
         <header class="showcase-hero">
           <img class="showcase-logo" src="./assets/vanilya-port-logo.jpg" alt="Vanilya Port logosu" />
@@ -29,7 +42,7 @@
             ‹
           </button>
           <div>
-            <p>THE VANİLYA PORT</p>
+            <p>VANİLYA PORT</p>
             <h1 id="menuTitle">Menü</h1>
           </div>
           <img src="./assets/vanilya-port-logo.jpg" alt="" aria-hidden="true" />
@@ -68,6 +81,6 @@
     </main>
 
     <script src="./menu-data.js?v=20260701-categories"></script>
-    <script src="./showcase.js?v=20260702-fixed-topbar"></script>
+    <script src="./showcase.js?v=20260702-sticky-scroll-fix"></script>
   </body>
 </html>

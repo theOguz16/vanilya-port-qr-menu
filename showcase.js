@@ -168,7 +168,16 @@ function setActiveCategory(category) {
   });
 
   const active = document.querySelector(`.rail-button[data-category="${category}"]`);
-  active?.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+  if (active) {
+    const targetLeft = active.offsetLeft - categoryRail.clientWidth / 2 + active.clientWidth / 2;
+    categoryRail.scrollTo({ left: Math.max(0, targetLeft), behavior: "smooth" });
+  }
+}
+
+function stickyOffset() {
+  const topbar = document.querySelector(".menu-topbar")?.getBoundingClientRect().height || 0;
+  const filter = document.querySelector(".menu-filter-shell")?.getBoundingClientRect().height || 0;
+  return topbar + filter + 14;
 }
 
 function observeSections() {
@@ -191,7 +200,13 @@ function observeSections() {
 }
 
 function scrollToCategory(category) {
-  document.querySelector(`#showcase-${category}`)?.scrollIntoView({ behavior: "smooth", block: "start" });
+  const section = document.querySelector(`#showcase-${category}`);
+  if (!section) {
+    return;
+  }
+
+  const targetTop = window.scrollY + section.getBoundingClientRect().top - stickyOffset();
+  window.scrollTo({ top: Math.max(0, targetTop), behavior: "smooth" });
   setActiveCategory(category);
 }
 
@@ -206,7 +221,7 @@ function showMenu(category = showcaseCategories[0]) {
   setActiveCategory(category);
 
   if (category !== showcaseCategories[0]) {
-    window.setTimeout(() => scrollToCategory(category), 80);
+    window.setTimeout(() => scrollToCategory(category), 140);
   }
 }
 
