@@ -10,6 +10,7 @@ const backToCategories = document.querySelector("#backToCategories");
 const seeAllButton = document.querySelector("#seeAllButton");
 const productSheetAlt = document.querySelector("#productSheetAlt");
 const closeSheetAlt = document.querySelector("#closeSheetAlt");
+const closeSheetButtons = document.querySelectorAll("[data-close-sheet]");
 const altSheetImage = document.querySelector("#altSheetImage");
 const altSheetCategory = document.querySelector("#altSheetCategory");
 const altSheetTitle = document.querySelector("#altSheetTitle");
@@ -263,6 +264,7 @@ async function initShowcase() {
 backToCategories.addEventListener("click", showCategories);
 seeAllButton.addEventListener("click", showCategories);
 closeSheetAlt.addEventListener("click", closeProductSheet);
+closeSheetButtons.forEach((button) => button.addEventListener("click", closeProductSheet));
 document.addEventListener("keydown", (event) => {
   if (event.key === "Escape") {
     closeProductSheet();

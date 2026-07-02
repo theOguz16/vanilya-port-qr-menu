@@ -65,42 +65,46 @@ button {
 .showcase-decor img {
   position: absolute;
   display: block;
-  opacity: 0.04;
+  opacity: 0.115;
   filter: invert(24%) sepia(18%) saturate(1052%) hue-rotate(34deg) brightness(84%) contrast(88%);
 }
 
+.showcase-app[data-view="menu"] .showcase-decor img {
+  opacity: 0;
+}
+
 .decor-palm {
-  width: 132px;
-  height: 132px;
-  left: max(16px, calc(50% - 250px));
-  top: 96px;
-  transform: rotate(-10deg);
+  width: 112px;
+  height: 112px;
+  left: max(8px, calc(50% - 256px));
+  top: 22px;
+  transform: rotate(-12deg);
 }
 
 .decor-umbrella {
-  width: 154px;
-  height: 154px;
-  right: max(10px, calc(50% - 256px));
-  bottom: 42px;
-  transform: rotate(8deg);
+  width: 116px;
+  height: 116px;
+  right: max(7px, calc(50% - 258px));
+  top: 36px;
+  transform: rotate(10deg);
 }
 
 .decor-lounger {
-  width: 128px;
-  height: 128px;
-  right: max(24px, calc(50% - 235px));
-  top: 205px;
-  opacity: 0.032;
-  transform: rotate(-7deg);
+  width: 124px;
+  height: 124px;
+  left: max(10px, calc(50% - 252px));
+  bottom: 22px;
+  opacity: 0.105;
+  transform: rotate(8deg);
 }
 
 .decor-waves {
-  width: 178px;
-  height: 94px;
-  left: max(12px, calc(50% - 248px));
-  bottom: 122px;
-  opacity: 0.035;
-  transform: rotate(2deg);
+  width: 152px;
+  height: 80px;
+  right: max(8px, calc(50% - 258px));
+  bottom: 34px;
+  opacity: 0.1;
+  transform: rotate(-3deg);
 }
 
 .showcase-landing,
@@ -556,6 +560,27 @@ button {
   border-radius: 26px 26px 0 0;
   background: var(--vp-paper);
   box-shadow: 0 -28px 70px rgba(0, 0, 0, 0.24);
+}
+
+.sheet-close-button {
+  width: 42px;
+  height: 42px;
+  position: absolute;
+  top: 22px;
+  right: 22px;
+  z-index: 2;
+  border: 1px solid rgba(49, 65, 15, 0.12);
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: rgba(255, 253, 247, 0.9);
+  color: var(--vp-olive);
+  cursor: pointer;
+  font-size: 1.55rem;
+  font-weight: 700;
+  line-height: 1;
+  box-shadow: 0 12px 28px rgba(49, 65, 15, 0.16);
+  backdrop-filter: blur(12px);
 }
 
 .alt-sheet-card img {
