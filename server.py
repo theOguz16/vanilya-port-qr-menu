@@ -1005,8 +1005,8 @@ class VanilyaPortHandler(BaseHTTPRequestHandler):
 
     def serve_static(self, request_path):
         path = unquote(request_path)
-        if path == "/":
-            path = "/index.html"
+        if path in {"/", "/index.html"}:
+            path = "/showcase.html"
         if path.endswith("/"):
             path = f"{path}index.html"
 
