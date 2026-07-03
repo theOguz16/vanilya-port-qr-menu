@@ -1007,6 +1007,8 @@ class VanilyaPortHandler(BaseHTTPRequestHandler):
         path = unquote(request_path)
         if path in {"/", "/index.html"}:
             path = "/showcase.html"
+        if path == "/admin":
+            path = "/admin/index.html"
         if path.endswith("/"):
             path = f"{path}index.html"
 
