@@ -11,7 +11,7 @@
       href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Poppins:wght@400;500;600;700;800;900&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="../styles.css?v=20260703-admin-categories" />
+    <link rel="stylesheet" href="../styles.css?v=20260703-category-design" />
   </head>
   <body class="admin-page">
     <section class="admin-login" id="adminLogin">
@@ -125,10 +125,14 @@
           <div class="admin-category-manager">
             <div class="admin-preview-header">
               <span class="panel-index">Kategoriler</span>
+              <small>Yeni kategori ekle, mevcut kategori adlarını düzenle.</small>
             </div>
             <form class="admin-category-form" id="categoryForm">
-              <input name="label" type="text" placeholder="Yeni kategori adı" required />
-              <button class="save-button" type="submit">Kategori ekle</button>
+              <label>
+                Kategori adı
+                <input name="label" type="text" placeholder="Örn. Kahvaltılar" required />
+              </label>
+              <button class="save-button" type="submit">Ekle</button>
             </form>
             <div class="admin-category-manager-list" id="categoryManagerList"></div>
             <p class="form-status" id="categoryStatus" role="status" aria-live="polite"></p>
@@ -137,7 +141,7 @@
       </section>
     </main>
 
-    <script src="../menu-data.js?v=20260703-admin-categories"></script>
-    <script src="./admin.js?v=20260703-admin-categories"></script>
+    <script src="../menu-data.js?v=20260703-category-design"></script>
+    <script src="./admin.js?v=20260703-category-design"></script>
   </body>
 </html>
