@@ -77,6 +77,7 @@ function createImage(src, alt = "") {
 
 function renderCategoryGrid() {
   categoryGrid.textContent = "";
+  document.querySelector(".showcase-app").classList.toggle("has-many-categories", showcaseCategories.length > 4);
 
   showcaseCategories.forEach((category) => {
     const button = document.createElement("button");
