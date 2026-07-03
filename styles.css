@@ -2656,11 +2656,11 @@ a {
 
 .admin-category-form,
 .admin-category-manager-row {
-  grid-template-columns: minmax(0, 1.2fr) 76px auto;
+  grid-template-columns: minmax(0, 1fr) auto;
 }
 
 .admin-category-manager-row {
-  grid-template-columns: minmax(0, 1.2fr) 76px auto auto;
+  grid-template-columns: minmax(0, 1fr) auto auto;
 }
 
 .admin-option-list,

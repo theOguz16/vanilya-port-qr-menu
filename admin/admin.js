@@ -148,7 +148,6 @@ function renderCategoryManager() {
     row.dataset.category = category.id;
     row.innerHTML = `
       <input name="label" type="text" value="${escapeHtml(category.label)}" aria-label="Kategori adı" />
-      <input name="sortOrder" type="number" value="${escapeHtml(category.sortOrder ?? 0)}" aria-label="Sıra" />
       <button type="button" data-category-action="save">Güncelle</button>
       <button type="button" data-category-action="delete">Sil</button>
     `;
@@ -373,11 +372,9 @@ categoryForm.addEventListener("submit", async (event) => {
   try {
     const category = await store.addCategory({
       label: formData.get("label").trim(),
-      sortOrder: Number(formData.get("sortOrder")) || 0,
     });
     selectedCategory = category.id;
     categoryForm.reset();
-    categoryForm.elements.sortOrder.value = "10";
     await loadCategories();
     renderCategorySelect();
     renderCategoryManager();
@@ -398,11 +395,10 @@ categoryManagerList.addEventListener("click", async (event) => {
   const categoryId = row.dataset.category;
   const category = categoriesCache.find((item) => item.id === categoryId);
   const label = row.querySelector("input[name='label']").value.trim();
-  const sortOrder = Number(row.querySelector("input[name='sortOrder']").value) || 0;
 
   try {
     if (button.dataset.categoryAction === "save") {
-      const updated = await store.updateCategory(categoryId, { label, sortOrder });
+      const updated = await store.updateCategory(categoryId, { label });
       await loadCategories();
       renderCategorySelect();
       renderCategoryManager();

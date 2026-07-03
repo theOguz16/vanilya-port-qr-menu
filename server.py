@@ -661,10 +661,14 @@ def category_id_from_label(label):
 def normalize_category_payload(payload, existing_id=""):
     label = str(payload.get("label") or "").strip()
     category_id = str(payload.get("id") or existing_id or category_id_from_label(label)).strip()
+    raw_sort_order = payload.get("sortOrder")
+    sort_order = None
+    if raw_sort_order not in (None, ""):
+        sort_order = int(raw_sort_order)
     return {
         "id": category_id,
         "label": label,
-        "sort_order": int(payload.get("sortOrder") or 0),
+        "sort_order": sort_order,
     }
 
 
@@ -784,6 +788,11 @@ class VanilyaPortHandler(BaseHTTPRequestHandler):
             existing = conn.execute("SELECT id FROM categories WHERE id = ?", (payload["id"],)).fetchone()
             if existing:
                 payload["id"] = f"{payload['id']}-{secrets.token_hex(2)}"
+            if payload["sort_order"] is None:
+                max_sort_order = conn.execute(
+                    "SELECT COALESCE(MAX(sort_order), -10) AS max_sort_order FROM categories"
+                ).fetchone()["max_sort_order"]
+                payload["sort_order"] = int(max_sort_order) + 10
             conn.execute(
                 """
                 INSERT INTO categories (id, label, sort_order, created_at, updated_at)
@@ -805,13 +814,14 @@ class VanilyaPortHandler(BaseHTTPRequestHandler):
             existing = conn.execute("SELECT * FROM categories WHERE id = ?", (category_id,)).fetchone()
             if not existing:
                 return self.write_json({"error": "Kategori bulunamadı."}, HTTPStatus.NOT_FOUND)
+            sort_order = existing["sort_order"] if payload["sort_order"] is None else payload["sort_order"]
             conn.execute(
                 """
                 UPDATE categories
                 SET label = ?, sort_order = ?, updated_at = ?
                 WHERE id = ?
                 """,
-                (payload["label"], payload["sort_order"], now, category_id),
+                (payload["label"], sort_order, now, category_id),
             )
             row = conn.execute("SELECT * FROM categories WHERE id = ?", (category_id,)).fetchone()
             meta = category_meta(conn)
