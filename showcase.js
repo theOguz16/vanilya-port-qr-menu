@@ -19,6 +19,13 @@ const altSheetOptions = document.querySelector("#altSheetOptions");
 const altSheetPrice = document.querySelector("#altSheetPrice");
 const altSheetCalories = document.querySelector("#altSheetCalories");
 
+const categoryTitleImages = {
+  foods:
+    "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=900&q=82",
+  yemek:
+    "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=900&q=82",
+};
+
 let showcaseProducts = [];
 let sectionObserver = null;
 let categoryScrollLock = null;
@@ -51,7 +58,11 @@ function productsFor(category) {
 }
 
 function categoryHeroImage(category) {
-  return productsFor(category).find((product) => product.image)?.image || showcaseStore.placeholderImage;
+  const productImage = productsFor(category).find((product) => product.image)?.image;
+  if (productImage && !productImage.includes("vanilya-port-logo")) {
+    return productImage;
+  }
+  return categoryTitleImages[category] || productImage || showcaseStore.placeholderImage;
 }
 
 function createImage(src, alt = "") {
