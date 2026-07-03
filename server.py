@@ -28,8 +28,9 @@ DEFAULT_CATEGORY_LABELS = {
     "hotDrinks": "Sıcak İçecekler",
     "desserts": "Tatlılar",
     "snacks": "Atıştırmalıklar",
+    "foods": "Yemekler",
 }
-DEFAULT_CATEGORY_ORDER = ["coldDrinks", "hotDrinks", "desserts", "snacks"]
+DEFAULT_CATEGORY_ORDER = ["coldDrinks", "hotDrinks", "desserts", "snacks", "foods"]
 PLACEHOLDER_IMAGE = "./assets/vanilya-port-logo.jpg"
 DEFAULT_PRODUCT_OPTIONS = {
     "ice-latte": ["Klasik", "Vanilyalı", "Karamelli"],
@@ -91,7 +92,7 @@ SEED_PRODUCTS = [
     {
         "id": "turk-kahvesi",
         "name": "Türk Kahvesi",
-        "price": "95 TL",
+        "price": "120 TL",
         "calories": "25 kcal",
         "category": "hotDrinks",
         "description": "Geleneksel bakır cezvede hazırlanan bol köpüklü Türk kahvesi.",
@@ -102,7 +103,7 @@ SEED_PRODUCTS = [
     {
         "id": "latte",
         "name": "Latte",
-        "price": "140 TL",
+        "price": "150 TL",
         "calories": "150 kcal",
         "category": "hotDrinks",
         "description": "Yumuşak espresso, ipeksi süt dokusu ve zarif latte art.",
@@ -113,7 +114,7 @@ SEED_PRODUCTS = [
     {
         "id": "cappuccino",
         "name": "Cappuccino",
-        "price": "140 TL",
+        "price": "150 TL",
         "calories": "130 kcal",
         "category": "hotDrinks",
         "description": "Dengeli espresso, yoğun süt köpüğü ve kakao dokunuşu.",
@@ -131,6 +132,72 @@ SEED_PRODUCTS = [
         "image": PLACEHOLDER_IMAGE,
         "isActive": True,
         "sortOrder": 40,
+    },
+    {
+        "id": "espresso",
+        "name": "Espresso",
+        "price": "120 TL",
+        "calories": "5 kcal",
+        "category": "hotDrinks",
+        "description": "Yoğun aromalı, kısa ve dengeli espresso shot.",
+        "image": PLACEHOLDER_IMAGE,
+        "isActive": True,
+        "sortOrder": 50,
+    },
+    {
+        "id": "americano",
+        "name": "Americano",
+        "price": "150 TL",
+        "calories": "10 kcal",
+        "category": "hotDrinks",
+        "description": "Espresso üzerine sıcak suyla hazırlanan sade kahve.",
+        "image": PLACEHOLDER_IMAGE,
+        "isActive": True,
+        "sortOrder": 60,
+    },
+    {
+        "id": "cortado",
+        "name": "Cortado",
+        "price": "150 TL",
+        "calories": "70 kcal",
+        "category": "hotDrinks",
+        "description": "Espresso ve sıcak sütün dengeli, yumuşak birleşimi.",
+        "image": PLACEHOLDER_IMAGE,
+        "isActive": True,
+        "sortOrder": 70,
+    },
+    {
+        "id": "affogato",
+        "name": "Affogato",
+        "price": "160 TL",
+        "calories": "180 kcal",
+        "category": "hotDrinks",
+        "description": "Vanilyalı dondurma üzerine espresso dokunuşu.",
+        "image": PLACEHOLDER_IMAGE,
+        "isActive": True,
+        "sortOrder": 80,
+    },
+    {
+        "id": "mocha",
+        "name": "Mocha",
+        "price": "150 TL",
+        "calories": "220 kcal",
+        "category": "hotDrinks",
+        "description": "Espresso, süt ve çikolata aromasıyla kremamsı kahve.",
+        "image": PLACEHOLDER_IMAGE,
+        "isActive": True,
+        "sortOrder": 90,
+    },
+    {
+        "id": "bitki-caylari",
+        "name": "Bitki Çayları",
+        "price": "150 TL",
+        "calories": "5 kcal",
+        "category": "hotDrinks",
+        "description": "Rahatlatıcı aromalara sahip sıcak bitki çayı seçkisi.",
+        "image": PLACEHOLDER_IMAGE,
+        "isActive": True,
+        "sortOrder": 100,
     },
     {
         "id": "san-sebastian",
@@ -234,7 +301,67 @@ SEED_PRODUCTS = [
         "isActive": True,
         "sortOrder": 60,
     },
+    {
+        "id": "patates-cips",
+        "name": "Patates Cips",
+        "price": "200 TL",
+        "calories": "430 kcal",
+        "category": "snacks",
+        "description": "Paylaşıma uygun çıtır patates cipsi.",
+        "image": PLACEHOLDER_IMAGE,
+        "isActive": True,
+        "sortOrder": 70,
+    },
+    {
+        "id": "combo-tabagi",
+        "name": "Combo Tabağı",
+        "price": "500 TL",
+        "calories": "900 kcal",
+        "category": "snacks",
+        "description": "Atıştırmalıkların paylaşmalık, doyurucu birleşimi.",
+        "image": PLACEHOLDER_IMAGE,
+        "isActive": True,
+        "sortOrder": 80,
+    },
+    {
+        "id": "hamburger",
+        "name": "Hamburger",
+        "price": "400 TL",
+        "calories": "650 kcal",
+        "category": "foods",
+        "description": "Doyurucu köfte, taze yeşillik ve özel sosla hazırlanır.",
+        "image": PLACEHOLDER_IMAGE,
+        "isActive": True,
+        "sortOrder": 10,
+    },
+    {
+        "id": "gozleme",
+        "name": "Gözleme",
+        "price": "250 TL",
+        "calories": "520 kcal",
+        "category": "foods",
+        "description": "İnce hamurla hazırlanan sıcak ve geleneksel gözleme.",
+        "image": PLACEHOLDER_IMAGE,
+        "isActive": True,
+        "sortOrder": 20,
+    },
 ]
+
+REQUESTED_MENU_PRODUCT_IDS = {
+    "espresso",
+    "americano",
+    "cortado",
+    "affogato",
+    "latte",
+    "cappuccino",
+    "mocha",
+    "bitki-caylari",
+    "turk-kahvesi",
+    "hamburger",
+    "gozleme",
+    "patates-cips",
+    "combo-tabagi",
+}
 
 
 def utc_now():
@@ -250,6 +377,79 @@ def db_connect():
 def column_exists(conn, table, column):
     rows = conn.execute(f"PRAGMA table_info({table})").fetchall()
     return any(row["name"] == column for row in rows)
+
+
+def resolve_food_category_id(conn):
+    row = conn.execute(
+        """
+        SELECT id
+        FROM categories
+        WHERE id IN ('yemek', 'foods') OR lower(label) LIKE '%yemek%'
+        ORDER BY CASE WHEN id = 'yemek' THEN 0 WHEN id = 'foods' THEN 1 ELSE 2 END
+        LIMIT 1
+        """
+    ).fetchone()
+    if row:
+        return row["id"]
+
+    now = utc_now()
+    conn.execute(
+        """
+        INSERT OR IGNORE INTO categories (id, label, sort_order, created_at, updated_at)
+        VALUES (?, ?, ?, ?, ?)
+        """,
+        ("foods", DEFAULT_CATEGORY_LABELS["foods"], 40, now, now),
+    )
+    return "foods"
+
+
+def apply_requested_menu_products_migration(conn):
+    migration_id = "20260703-requested-menu-products"
+    applied = conn.execute("SELECT id FROM migrations WHERE id = ?", (migration_id,)).fetchone()
+    if applied:
+        return
+
+    now = utc_now()
+    food_category_id = resolve_food_category_id(conn)
+    products = [product for product in SEED_PRODUCTS if product["id"] in REQUESTED_MENU_PRODUCT_IDS]
+    for product in products:
+        category = food_category_id if product["category"] == "foods" else product["category"]
+        conn.execute(
+            """
+            INSERT INTO products (
+                id, name, price, calories, category, description, image,
+                is_active, sort_order, options_json, created_at, updated_at
+            )
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            ON CONFLICT(id) DO UPDATE SET
+                name = excluded.name,
+                price = excluded.price,
+                calories = excluded.calories,
+                category = excluded.category,
+                description = excluded.description,
+                image = excluded.image,
+                is_active = excluded.is_active,
+                sort_order = excluded.sort_order,
+                options_json = excluded.options_json,
+                updated_at = excluded.updated_at
+            """,
+            (
+                product["id"],
+                product["name"],
+                product["price"],
+                product["calories"],
+                category,
+                product["description"],
+                product["image"],
+                1 if product["isActive"] else 0,
+                product["sortOrder"],
+                json.dumps(product.get("options", []), ensure_ascii=False),
+                now,
+                now,
+            ),
+        )
+
+    conn.execute("INSERT INTO migrations (id, applied_at) VALUES (?, ?)", (migration_id, now))
 
 
 def init_db():
@@ -303,6 +503,14 @@ def init_db():
             )
             """
         )
+        conn.execute(
+            """
+            CREATE TABLE IF NOT EXISTS migrations (
+                id TEXT PRIMARY KEY,
+                applied_at TEXT NOT NULL
+            )
+            """
+        )
         category_count = conn.execute("SELECT COUNT(*) AS count FROM categories").fetchone()["count"]
         if category_count == 0:
             now = utc_now()
@@ -342,6 +550,7 @@ def init_db():
                     for product in SEED_PRODUCTS
                 ],
             )
+        apply_requested_menu_products_migration(conn)
 
 
 def product_from_row(row):
