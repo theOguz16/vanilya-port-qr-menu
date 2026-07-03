@@ -20,7 +20,7 @@ const defaultProducts = [
     "calories": "5 kcal",
     "category": "hotDrinks",
     "description": "Yoğun aromalı klasik espresso shot.",
-    "image": "https://loremflickr.com/900/700/espresso,coffee?lock=1884",
+    "image": "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=900&q=82",
     "isActive": true,
     "sortOrder": 10
   },
@@ -31,7 +31,7 @@ const defaultProducts = [
     "calories": "10 kcal",
     "category": "hotDrinks",
     "description": "İki shot espresso ile daha yoğun kahve deneyimi.",
-    "image": "https://loremflickr.com/900/700/double,espresso,coffee?lock=2564",
+    "image": "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=900&q=82",
     "isActive": true,
     "sortOrder": 20
   },
@@ -42,7 +42,7 @@ const defaultProducts = [
     "calories": "220 kcal",
     "category": "hotDrinks",
     "description": "Vanilyalı dondurma üzerine sıcak espresso dökülerek servis edilir.",
-    "image": "https://loremflickr.com/900/700/affogato,coffee,dessert?lock=1839",
+    "image": "https://images.unsplash.com/photo-1517701604599-bb29b565090c?auto=format&fit=crop&w=900&q=82",
     "isActive": true,
     "sortOrder": 30
   },
@@ -53,7 +53,7 @@ const defaultProducts = [
     "calories": "80 kcal",
     "category": "hotDrinks",
     "description": "Espresso ve sıcak sütün dengeli, yumuşak birleşimi.",
-    "image": "https://loremflickr.com/900/700/cortado,coffee?lock=1748",
+    "image": "https://images.unsplash.com/photo-1517701604599-bb29b565090c?auto=format&fit=crop&w=900&q=82",
     "isActive": true,
     "sortOrder": 40
   },
@@ -64,7 +64,7 @@ const defaultProducts = [
     "calories": "10 kcal",
     "category": "hotDrinks",
     "description": "Espresso üzerine sıcak suyla hazırlanan sade kahve.",
-    "image": "https://loremflickr.com/900/700/americano,coffee?lock=1943",
+    "image": "https://images.unsplash.com/photo-1517701604599-bb29b565090c?auto=format&fit=crop&w=900&q=82",
     "isActive": true,
     "sortOrder": 50
   },
@@ -75,7 +75,7 @@ const defaultProducts = [
     "calories": "170 kcal",
     "category": "hotDrinks",
     "description": "Espresso ve ipeksi süt dokusuyla yumuşak içimli latte.",
-    "image": "https://loremflickr.com/900/700/hot,latte,coffee?lock=2199",
+    "image": "https://images.unsplash.com/photo-1517701604599-bb29b565090c?auto=format&fit=crop&w=900&q=82",
     "isActive": true,
     "sortOrder": 60
   },
@@ -86,7 +86,7 @@ const defaultProducts = [
     "calories": "260 kcal",
     "category": "hotDrinks",
     "description": "Espresso, süt ve çikolata aromasıyla kremamsı sıcak kahve.",
-    "image": "https://loremflickr.com/900/700/mocha,coffee,chocolate?lock=2181",
+    "image": "https://images.unsplash.com/photo-1517701604599-bb29b565090c?auto=format&fit=crop&w=900&q=82",
     "isActive": true,
     "sortOrder": 70
   },
@@ -97,7 +97,7 @@ const defaultProducts = [
     "calories": "140 kcal",
     "category": "hotDrinks",
     "description": "Dengeli espresso, yoğun süt köpüğü ve kakao dokunuşu.",
-    "image": "https://loremflickr.com/900/700/cappuccino,coffee?lock=2061",
+    "image": "https://images.unsplash.com/photo-1517701604599-bb29b565090c?auto=format&fit=crop&w=900&q=82",
     "isActive": true,
     "sortOrder": 80
   },
@@ -108,7 +108,7 @@ const defaultProducts = [
     "calories": "5 kcal",
     "category": "hotDrinks",
     "description": "Günlük çekilmiş kahveyle hazırlanan sade filtre kahve.",
-    "image": "https://loremflickr.com/900/700/filter,coffee?lock=2218",
+    "image": "https://images.unsplash.com/photo-1517701604599-bb29b565090c?auto=format&fit=crop&w=900&q=82",
     "isActive": true,
     "sortOrder": 90
   },
@@ -119,7 +119,7 @@ const defaultProducts = [
     "calories": "320 kcal",
     "category": "hotDrinks",
     "description": "Yoğun çikolata aromalı, sıcak ve kremamsı içecek.",
-    "image": "https://loremflickr.com/900/700/hot,chocolate,drink?lock=2408",
+    "image": "https://images.unsplash.com/photo-1542990253-0d0f5be5f0ed?auto=format&fit=crop&w=900&q=82",
     "isActive": true,
     "sortOrder": 100
   },
@@ -130,7 +130,7 @@ const defaultProducts = [
     "calories": "25 kcal",
     "category": "hotDrinks",
     "description": "Geleneksel bakır cezvede hazırlanan bol köpüklü Türk kahvesi.",
-    "image": "https://loremflickr.com/900/700/turkish,coffee?lock=2246",
+    "image": "https://images.unsplash.com/photo-1559496417-e7f25cb247f3?auto=format&fit=crop&w=900&q=82",
     "isActive": true,
     "sortOrder": 110
   },
@@ -141,7 +141,7 @@ const defaultProducts = [
     "calories": "35 kcal",
     "category": "hotDrinks",
     "description": "Damla sakızı aromasıyla hazırlanan geleneksel Türk kahvesi.",
-    "image": "https://loremflickr.com/900/700/turkish,coffee?lock=3606",
+    "image": "https://images.unsplash.com/photo-1559496417-e7f25cb247f3?auto=format&fit=crop&w=900&q=82",
     "isActive": true,
     "sortOrder": 120
   },
@@ -152,7 +152,7 @@ const defaultProducts = [
     "calories": "60 kcal",
     "category": "hotDrinks",
     "description": "Yumuşak içimli, aromatik geleneksel dibek kahvesi.",
-    "image": "https://loremflickr.com/900/700/turkish,coffee?lock=2303",
+    "image": "https://images.unsplash.com/photo-1559496417-e7f25cb247f3?auto=format&fit=crop&w=900&q=82",
     "isActive": true,
     "sortOrder": 130
   },
@@ -163,7 +163,7 @@ const defaultProducts = [
     "calories": "5 kcal",
     "category": "hotDrinks",
     "description": "Sıcak servis edilen rahatlatıcı bitki çayı seçkisi.",
-    "image": "https://loremflickr.com/900/700/herbal,tea?lock=2317",
+    "image": "https://images.unsplash.com/photo-1544787219-7f47ccb76574?auto=format&fit=crop&w=900&q=82",
     "isActive": true,
     "sortOrder": 140,
     "options": [
@@ -182,7 +182,7 @@ const defaultProducts = [
     "calories": "3 kcal",
     "category": "hotDrinks",
     "description": "Taze demlenmiş klasik sıcak çay.",
-    "image": "https://loremflickr.com/900/700/turkish,tea?lock=1317",
+    "image": "https://images.unsplash.com/photo-1544787219-7f47ccb76574?auto=format&fit=crop&w=900&q=82",
     "isActive": true,
     "sortOrder": 150
   },
@@ -193,7 +193,7 @@ const defaultProducts = [
     "calories": "620 kcal",
     "category": "foods",
     "description": "Çıtır tavuk, taze yeşillik ve özel sosla hazırlanan doyurucu burger.",
-    "image": "https://loremflickr.com/900/700/chicken,burger?lock=2417",
+    "image": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=900&q=82",
     "isActive": true,
     "sortOrder": 10
   },
@@ -204,7 +204,7 @@ const defaultProducts = [
     "calories": "700 kcal",
     "category": "foods",
     "description": "Izgara köfte, taze yeşillik ve özel sosla hazırlanan klasik burger.",
-    "image": "https://loremflickr.com/900/700/hamburger,burger?lock=1957",
+    "image": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=900&q=82",
     "isActive": true,
     "sortOrder": 20
   },
@@ -215,7 +215,7 @@ const defaultProducts = [
     "calories": "780 kcal",
     "category": "foods",
     "description": "Cheddar peyniri, köfte ve özel sosla hazırlanan yoğun lezzetli burger.",
-    "image": "https://loremflickr.com/900/700/cheeseburger,cheddar?lock=2407",
+    "image": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=900&q=82",
     "isActive": true,
     "sortOrder": 30
   },
@@ -226,7 +226,7 @@ const defaultProducts = [
     "calories": "520 kcal",
     "category": "foods",
     "description": "Sıcak servis edilen ince hamurlu geleneksel gözleme.",
-    "image": "https://loremflickr.com/900/700/flatbread,pastry?lock=1755",
+    "image": "https://images.unsplash.com/photo-1529006557810-274b9b2fc783?auto=format&fit=crop&w=900&q=82",
     "isActive": true,
     "sortOrder": 40,
     "options": [
@@ -241,7 +241,7 @@ const defaultProducts = [
     "calories": "1100 kcal",
     "category": "foods",
     "description": "Paylaşımlık sıcak atıştırmalıkların doyurucu birleşimi.",
-    "image": "https://loremflickr.com/900/700/snack,platter,fries?lock=2189",
+    "image": "https://images.unsplash.com/photo-1541592106381-b31e9677c0e5?auto=format&fit=crop&w=900&q=82",
     "isActive": true,
     "sortOrder": 50
   },
@@ -252,7 +252,7 @@ const defaultProducts = [
     "calories": "430 kcal",
     "category": "foods",
     "description": "Altın renkli çıtır patates kızartması.",
-    "image": "https://loremflickr.com/900/700/french,fries?lock=2886",
+    "image": "https://images.unsplash.com/photo-1576107232684-1279f390859f?auto=format&fit=crop&w=900&q=82",
     "isActive": true,
     "sortOrder": 60
   },
@@ -263,7 +263,7 @@ const defaultProducts = [
     "calories": "450 kcal",
     "category": "foods",
     "description": "Baharatlı elma dilim patates, sıcak ve çıtır servis edilir.",
-    "image": "https://loremflickr.com/900/700/potato,wedges?lock=3918",
+    "image": "https://images.unsplash.com/photo-1576107232684-1279f390859f?auto=format&fit=crop&w=900&q=82",
     "isActive": true,
     "sortOrder": 70
   },
@@ -274,7 +274,7 @@ const defaultProducts = [
     "calories": "520 kcal",
     "category": "foods",
     "description": "Çıtır sigara börekleri, paylaşmalık tabak sunumuyla.",
-    "image": "https://loremflickr.com/900/700/cheese,rolls,pastry?lock=2969",
+    "image": "https://images.unsplash.com/photo-1541592106381-b31e9677c0e5?auto=format&fit=crop&w=900&q=82",
     "isActive": true,
     "sortOrder": 80
   },
@@ -285,7 +285,7 @@ const defaultProducts = [
     "calories": "480 kcal",
     "category": "foods",
     "description": "Çıtır kaplamalı soğan halkaları, sıcak servis edilir.",
-    "image": "https://loremflickr.com/900/700/onion,rings?lock=2975",
+    "image": "https://images.unsplash.com/photo-1541592106381-b31e9677c0e5?auto=format&fit=crop&w=900&q=82",
     "isActive": true,
     "sortOrder": 90
   },
@@ -296,7 +296,7 @@ const defaultProducts = [
     "calories": "540 kcal",
     "category": "foods",
     "description": "Çıtır tavuk nugget parçaları, paylaşmalık tabak sunumuyla.",
-    "image": "https://loremflickr.com/900/700/chicken,nuggets?lock=2311",
+    "image": "https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?auto=format&fit=crop&w=900&q=82",
     "isActive": true,
     "sortOrder": 100
   },
@@ -307,7 +307,7 @@ const defaultProducts = [
     "calories": "680 kcal",
     "category": "foods",
     "description": "Baharatlı çıtır tavuk parçaları, sepet sunumuyla.",
-    "image": "https://loremflickr.com/900/700/crispy,chicken?lock=2834",
+    "image": "https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?auto=format&fit=crop&w=900&q=82",
     "isActive": true,
     "sortOrder": 110
   },
@@ -318,7 +318,7 @@ const defaultProducts = [
     "calories": "190 kcal",
     "category": "coldDrinks",
     "description": "Buz, espresso ve soğuk sütle hazırlanan ferah kahve.",
-    "image": "https://loremflickr.com/900/700/iced,latte,coffee?lock=1888",
+    "image": "https://images.unsplash.com/photo-1461023058943-07fcbe16d735?auto=format&fit=crop&w=900&q=82",
     "isActive": true,
     "sortOrder": 10,
     "options": [
@@ -336,7 +336,7 @@ const defaultProducts = [
     "calories": "290 kcal",
     "category": "coldDrinks",
     "description": "Soğuk espresso, süt ve çikolata aromasıyla hazırlanır.",
-    "image": "https://loremflickr.com/900/700/iced,mocha,coffee?lock=1870",
+    "image": "https://images.unsplash.com/photo-1461023058943-07fcbe16d735?auto=format&fit=crop&w=900&q=82",
     "isActive": true,
     "sortOrder": 20
   },
@@ -347,7 +347,7 @@ const defaultProducts = [
     "calories": "320 kcal",
     "category": "coldDrinks",
     "description": "Beyaz çikolata aromalı soğuk kahve.",
-    "image": "https://loremflickr.com/900/700/iced,white,mocha?lock=2460",
+    "image": "https://images.unsplash.com/photo-1461023058943-07fcbe16d735?auto=format&fit=crop&w=900&q=82",
     "isActive": true,
     "sortOrder": 30
   },
@@ -358,7 +358,7 @@ const defaultProducts = [
     "calories": "20 kcal",
     "category": "coldDrinks",
     "description": "Espresso, soğuk su ve buzla hazırlanan sade soğuk kahve.",
-    "image": "https://loremflickr.com/900/700/iced,americano,coffee?lock=2293",
+    "image": "https://images.unsplash.com/photo-1461023058943-07fcbe16d735?auto=format&fit=crop&w=900&q=82",
     "isActive": true,
     "sortOrder": 40
   },
@@ -369,7 +369,7 @@ const defaultProducts = [
     "calories": "10 kcal",
     "category": "coldDrinks",
     "description": "Uzun demleme yöntemiyle hazırlanan yumuşak içimli soğuk kahve.",
-    "image": "https://loremflickr.com/900/700/cold,brew,coffee?lock=1895",
+    "image": "https://images.unsplash.com/photo-1461023058943-07fcbe16d735?auto=format&fit=crop&w=900&q=82",
     "isActive": true,
     "sortOrder": 50
   },
@@ -380,7 +380,7 @@ const defaultProducts = [
     "calories": "360 kcal",
     "category": "coldDrinks",
     "description": "Buzla karıştırılmış kremamsı kahve içeceği.",
-    "image": "https://loremflickr.com/900/700/coffee,frappe?lock=1638",
+    "image": "https://images.unsplash.com/photo-1461023058943-07fcbe16d735?auto=format&fit=crop&w=900&q=82",
     "isActive": true,
     "sortOrder": 60,
     "options": [
@@ -397,7 +397,7 @@ const defaultProducts = [
     "calories": "420 kcal",
     "category": "coldDrinks",
     "description": "Yoğun ve kremamsı soğuk milkshake.",
-    "image": "https://loremflickr.com/900/700/milkshake?lock=1953",
+    "image": "https://images.unsplash.com/photo-1572490122747-3968b75cc699?auto=format&fit=crop&w=900&q=82",
     "isActive": true,
     "sortOrder": 70,
     "options": [
@@ -415,7 +415,7 @@ const defaultProducts = [
     "calories": "260 kcal",
     "category": "coldDrinks",
     "description": "Buzlu meyve aromalarıyla hazırlanan ferah içecek.",
-    "image": "https://loremflickr.com/900/700/frozen,fruit,drink?lock=1660",
+    "image": "https://images.unsplash.com/photo-1544145945-f90425340c7e?auto=format&fit=crop&w=900&q=82",
     "isActive": true,
     "sortOrder": 80,
     "options": [
@@ -435,7 +435,7 @@ const defaultProducts = [
     "calories": "160 kcal",
     "category": "coldDrinks",
     "description": "Lime ve nane ferahlığıyla hazırlanan buzlu içecek.",
-    "image": "https://loremflickr.com/900/700/lime,drink?lock=1897",
+    "image": "https://images.unsplash.com/photo-1621263764928-df1444c5e859?auto=format&fit=crop&w=900&q=82",
     "isActive": true,
     "sortOrder": 90
   },
@@ -446,7 +446,7 @@ const defaultProducts = [
     "calories": "150 kcal",
     "category": "coldDrinks",
     "description": "Hibiskus ve orman meyvesi aromalarıyla ferah içecek.",
-    "image": "https://loremflickr.com/900/700/berry,hibiscus,drink?lock=2451",
+    "image": "https://images.unsplash.com/photo-1544145945-f90425340c7e?auto=format&fit=crop&w=900&q=82",
     "isActive": true,
     "sortOrder": 100
   },
@@ -457,7 +457,7 @@ const defaultProducts = [
     "calories": "180 kcal",
     "category": "coldDrinks",
     "description": "Aromalı soda ve buzla hazırlanan renkli ferah içecek.",
-    "image": "https://loremflickr.com/900/700/italian,soda,drink?lock=2222",
+    "image": "https://images.unsplash.com/photo-1556679343-c7306c1976bc?auto=format&fit=crop&w=900&q=82",
     "isActive": true,
     "sortOrder": 110
   },
@@ -468,7 +468,7 @@ const defaultProducts = [
     "calories": "240 kcal",
     "category": "coldDrinks",
     "description": "Buzlu, naneli ve meyve aromalı özel içecek.",
-    "image": "https://loremflickr.com/900/700/mojito,mocktail?lock=1658",
+    "image": "https://images.unsplash.com/photo-1621263764928-df1444c5e859?auto=format&fit=crop&w=900&q=82",
     "isActive": true,
     "sortOrder": 120,
     "options": [
@@ -487,7 +487,7 @@ const defaultProducts = [
     "calories": "80 kcal",
     "category": "coldDrinks",
     "description": "Soda, limon ve tuzla hazırlanan ferah klasik.",
-    "image": "https://loremflickr.com/900/700/lemon,soda?lock=1958",
+    "image": "https://images.unsplash.com/photo-1621263764928-df1444c5e859?auto=format&fit=crop&w=900&q=82",
     "isActive": true,
     "sortOrder": 130
   },
@@ -498,7 +498,7 @@ const defaultProducts = [
     "calories": "280 kcal",
     "category": "coldDrinks",
     "description": "Yoğun orman meyvesi aromalı özel soğuk içecek.",
-    "image": "https://loremflickr.com/900/700/berry,smoothie?lock=1803",
+    "image": "https://images.unsplash.com/photo-1544145945-f90425340c7e?auto=format&fit=crop&w=900&q=82",
     "isActive": true,
     "sortOrder": 140
   },
@@ -509,7 +509,7 @@ const defaultProducts = [
     "calories": "140 kcal",
     "category": "coldDrinks",
     "description": "Taze limonla hazırlanan ev yapımı limonata.",
-    "image": "https://loremflickr.com/900/700/lemonade?lock=2811",
+    "image": "https://images.unsplash.com/photo-1621263764928-df1444c5e859?auto=format&fit=crop&w=900&q=82",
     "isActive": true,
     "sortOrder": 150
   },
@@ -520,7 +520,7 @@ const defaultProducts = [
     "calories": "210 kcal",
     "category": "coldDrinks",
     "description": "Meyve aromalarıyla hazırlanan taze limonata.",
-    "image": "https://loremflickr.com/900/700/strawberry,lemonade?lock=2661",
+    "image": "https://images.unsplash.com/photo-1621263764928-df1444c5e859?auto=format&fit=crop&w=900&q=82",
     "isActive": true,
     "sortOrder": 160,
     "options": [
@@ -537,7 +537,7 @@ const defaultProducts = [
     "calories": "140 kcal",
     "category": "coldDrinks",
     "description": "Soğuk servis edilen gazlı içecek.",
-    "image": "https://loremflickr.com/900/700/cola,drink?lock=1415",
+    "image": "https://images.unsplash.com/photo-1556679343-c7306c1976bc?auto=format&fit=crop&w=900&q=82",
     "isActive": true,
     "sortOrder": 170
   },
@@ -548,7 +548,7 @@ const defaultProducts = [
     "calories": "140 kcal",
     "category": "coldDrinks",
     "description": "Soğuk servis edilen portakallı gazlı içecek.",
-    "image": "https://loremflickr.com/900/700/orange,soda?lock=1522",
+    "image": "https://images.unsplash.com/photo-1556679343-c7306c1976bc?auto=format&fit=crop&w=900&q=82",
     "isActive": true,
     "sortOrder": 180
   },
@@ -559,7 +559,7 @@ const defaultProducts = [
     "calories": "140 kcal",
     "category": "coldDrinks",
     "description": "Soğuk servis edilen klasik gazoz.",
-    "image": "https://loremflickr.com/900/700/soda,drink?lock=1555",
+    "image": "https://images.unsplash.com/photo-1556679343-c7306c1976bc?auto=format&fit=crop&w=900&q=82",
     "isActive": true,
     "sortOrder": 190
   },
@@ -570,7 +570,7 @@ const defaultProducts = [
     "calories": "120 kcal",
     "category": "coldDrinks",
     "description": "Soğuk servis edilen ferah ice tea.",
-    "image": "https://loremflickr.com/900/700/iced,tea?lock=1664",
+    "image": "https://images.unsplash.com/photo-1556679343-c7306c1976bc?auto=format&fit=crop&w=900&q=82",
     "isActive": true,
     "sortOrder": 200
   },
@@ -581,7 +581,7 @@ const defaultProducts = [
     "calories": "0 kcal",
     "category": "coldDrinks",
     "description": "Soğuk servis edilen sade maden suyu.",
-    "image": "https://loremflickr.com/900/700/sparkling,water?lock=1423",
+    "image": "https://images.unsplash.com/photo-1556679343-c7306c1976bc?auto=format&fit=crop&w=900&q=82",
     "isActive": true,
     "sortOrder": 210
   },
@@ -592,7 +592,7 @@ const defaultProducts = [
     "calories": "80 kcal",
     "category": "coldDrinks",
     "description": "Soğuk servis edilen geleneksel ayran.",
-    "image": "https://loremflickr.com/900/700/yogurt,drink?lock=1539",
+    "image": "https://images.unsplash.com/photo-1556679343-c7306c1976bc?auto=format&fit=crop&w=900&q=82",
     "isActive": true,
     "sortOrder": 220
   },
@@ -603,7 +603,7 @@ const defaultProducts = [
     "calories": "0 kcal",
     "category": "coldDrinks",
     "description": "Soğuk servis edilen şişe su.",
-    "image": "https://loremflickr.com/900/700/water,bottle?lock=1232",
+    "image": "https://images.unsplash.com/photo-1556679343-c7306c1976bc?auto=format&fit=crop&w=900&q=82",
     "isActive": true,
     "sortOrder": 230
   },
@@ -614,7 +614,7 @@ const defaultProducts = [
     "calories": "5 kcal",
     "category": "coldDrinks",
     "description": "Kahve içeceklerine ek espresso shot.",
-    "image": "https://loremflickr.com/900/700/espresso,shot?lock=2039",
+    "image": "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=900&q=82",
     "isActive": true,
     "sortOrder": 240
   },
@@ -625,7 +625,7 @@ const defaultProducts = [
     "calories": "520 kcal",
     "category": "desserts",
     "description": "Akışkan çikolatalı sıcak sufle.",
-    "image": "https://loremflickr.com/900/700/chocolate,souffle?lock=1543",
+    "image": "https://images.unsplash.com/photo-1606313564200-e75d5e30476c?auto=format&fit=crop&w=900&q=82",
     "isActive": true,
     "sortOrder": 10
   },
@@ -636,7 +636,7 @@ const defaultProducts = [
     "calories": "430 kcal",
     "category": "desserts",
     "description": "Kremalı magnolya tatlısı, seçilen meyveyle servis edilir.",
-    "image": "https://loremflickr.com/900/700/dessert,cup,strawberry?lock=1856",
+    "image": "https://images.unsplash.com/photo-1488477181946-6428a0291777?auto=format&fit=crop&w=900&q=82",
     "isActive": true,
     "sortOrder": 20,
     "options": [
@@ -651,7 +651,7 @@ const defaultProducts = [
     "calories": "480 kcal",
     "category": "desserts",
     "description": "Kremamsı cheesecake, seçilen sosla servis edilir.",
-    "image": "https://loremflickr.com/900/700/cheesecake,slice?lock=2025",
+    "image": "https://images.unsplash.com/photo-1533134242443-d4fd215305ad?auto=format&fit=crop&w=900&q=82",
     "isActive": true,
     "sortOrder": 30,
     "options": [
