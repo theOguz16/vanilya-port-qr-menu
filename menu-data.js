@@ -193,7 +193,7 @@ const defaultProducts = [
     "calories": "620 kcal",
     "category": "foods",
     "description": "Çıtır tavuk, taze yeşillik ve özel sosla hazırlanan doyurucu burger.",
-    "image": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=900&q=82",
+    "image": "./assets/product-photos/chicken-burger.jpg",
     "isActive": true,
     "sortOrder": 10
   },
@@ -241,7 +241,7 @@ const defaultProducts = [
     "calories": "1100 kcal",
     "category": "foods",
     "description": "Paylaşımlık sıcak atıştırmalıkların doyurucu birleşimi.",
-    "image": "https://images.unsplash.com/photo-1541592106381-b31e9677c0e5?auto=format&fit=crop&w=900&q=82",
+    "image": "./assets/product-photos/combo-tabagi.jpg",
     "isActive": true,
     "sortOrder": 50
   },
@@ -636,7 +636,7 @@ const defaultProducts = [
     "calories": "430 kcal",
     "category": "desserts",
     "description": "Kremalı magnolya tatlısı, seçilen meyveyle servis edilir.",
-    "image": "https://images.unsplash.com/photo-1488477181946-6428a0291777?auto=format&fit=crop&w=900&q=82",
+    "image": "./assets/product-photos/magnolya.jpg",
     "isActive": true,
     "sortOrder": 20,
     "options": [
@@ -651,7 +651,7 @@ const defaultProducts = [
     "calories": "480 kcal",
     "category": "desserts",
     "description": "Kremamsı cheesecake, seçilen sosla servis edilir.",
-    "image": "https://images.unsplash.com/photo-1533134242443-d4fd215305ad?auto=format&fit=crop&w=900&q=82",
+    "image": "./assets/product-photos/cheesecake.jpg",
     "isActive": true,
     "sortOrder": 30,
     "options": [
@@ -660,6 +660,28 @@ const defaultProducts = [
       "Frambuaz",
       "Çikolata"
     ]
+  },
+  {
+    "id": "frambuazli-yaz-tatlisi",
+    "name": "Frambuazlı Yaz Tatlısı",
+    "price": "250 TL",
+    "calories": "360 kcal",
+    "category": "desserts",
+    "description": "Hafif kreması ve frambuaz sosuyla ferah yaz tatlısı.",
+    "image": "./assets/product-photos/frambuazli-yaz-tatlisi.jpg",
+    "isActive": true,
+    "sortOrder": 40
+  },
+  {
+    "id": "tiramisu",
+    "name": "Tiramisu",
+    "price": "250 TL",
+    "calories": "420 kcal",
+    "category": "desserts",
+    "description": "Kahve aromalı kreması ve kakao dokusuyla klasik tiramisu.",
+    "image": "./assets/product-photos/tiramisu.jpg",
+    "isActive": true,
+    "sortOrder": 50
   }
 ];
 
