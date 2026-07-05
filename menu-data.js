@@ -625,7 +625,7 @@ const defaultProducts = [
     "calories": "520 kcal",
     "category": "desserts",
     "description": "Akışkan çikolatalı sıcak sufle.",
-    "image": "https://images.unsplash.com/photo-1606313564200-e75d5e30476c?auto=format&fit=crop&w=900&q=82",
+    "image": "./assets/product-photos/sufle.jpg",
     "isActive": true,
     "sortOrder": 10
   },

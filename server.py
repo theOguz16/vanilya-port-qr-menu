@@ -504,7 +504,7 @@ SEED_PRODUCTS = [{'id': 'espresso',
   'calories': '520 kcal',
   'category': 'desserts',
   'description': 'Akışkan çikolatalı sıcak sufle.',
-  'image': 'https://images.unsplash.com/photo-1606313564200-e75d5e30476c?auto=format&fit=crop&w=900&q=82',
+  'image': './assets/product-photos/sufle.jpg',
   'isActive': True,
   'sortOrder': 10},
  {'id': 'magnolya',
@@ -586,7 +586,7 @@ def resolve_food_category_id(conn):
 
 
 def apply_requested_menu_products_migration(conn):
-    migration_id = "20260705-real-product-photos"
+    migration_id = "20260705-sufle-real-photo"
     applied = conn.execute("SELECT id FROM migrations WHERE id = ?", (migration_id,)).fetchone()
     if applied:
         return
