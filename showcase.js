@@ -30,6 +30,7 @@ let showcaseProducts = [];
 let sectionObserver = null;
 let categoryScrollLock = null;
 let categoryScrollLockTimer = null;
+let scrollSyncFrame = null;
 
 function setPageMode(mode) {
   document.body.classList.toggle("is-landing-locked", mode === "categories");
@@ -225,6 +226,43 @@ function observeSections() {
   document.querySelectorAll(".product-section").forEach((section) => sectionObserver.observe(section));
 }
 
+function syncActiveCategoryToScroll({ force = false } = {}) {
+  if (categoryScrollLock && !force) {
+    return;
+  }
+
+  const sections = [...document.querySelectorAll(".product-section")];
+  if (!sections.length || menuView.hidden) {
+    return;
+  }
+
+  const focusLine = stickyOffset() + 72;
+  const current =
+    sections.find((section) => {
+      const rect = section.getBoundingClientRect();
+      return rect.top <= focusLine && rect.bottom > focusLine;
+    }) ||
+    sections
+      .filter((section) => section.getBoundingClientRect().bottom > focusLine)
+      .sort((a, b) => a.getBoundingClientRect().top - b.getBoundingClientRect().top)[0] ||
+    sections[sections.length - 1];
+
+  if (current?.dataset.category) {
+    setActiveCategory(current.dataset.category);
+  }
+}
+
+function scheduleCategoryScrollSync() {
+  if (scrollSyncFrame) {
+    return;
+  }
+
+  scrollSyncFrame = window.requestAnimationFrame(() => {
+    scrollSyncFrame = null;
+    syncActiveCategoryToScroll();
+  });
+}
+
 function scrollToCategory(category) {
   const section = document.querySelector(`#showcase-${category}`);
   if (!section) {
@@ -240,7 +278,7 @@ function scrollToCategory(category) {
 
   categoryScrollLockTimer = window.setTimeout(() => {
     categoryScrollLock = null;
-    setActiveCategory(category);
+    syncActiveCategoryToScroll({ force: true });
   }, 760);
 }
 
@@ -256,6 +294,7 @@ function showMenu(category = showcaseCategories[0]) {
   renderProductSections();
   observeSections();
   setActiveCategory(category);
+  window.addEventListener("scroll", scheduleCategoryScrollSync, { passive: true });
 
   if (category !== showcaseCategories[0]) {
     window.setTimeout(() => scrollToCategory(category), 140);
@@ -268,6 +307,7 @@ function showCategories() {
   categoryView.hidden = false;
   setPageMode("categories");
   sectionObserver?.disconnect();
+  window.removeEventListener("scroll", scheduleCategoryScrollSync);
   window.scrollTo({ top: 0, behavior: "auto" });
 }
 
